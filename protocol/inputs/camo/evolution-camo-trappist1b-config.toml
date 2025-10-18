@@ -1,0 +1,172 @@
+# ============================================================================
+# Configuration CAMO - TRAPPIST-1 avec évolution stellaire
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# SIMULATION
+# ----------------------------------------------------------------------------
+[simulation]
+name = "trappist1_planet"
+
+# ----------------------------------------------------------------------------
+# EVOLUTION
+# ----------------------------------------------------------------------------
+[evolution]
+temperature_pot_init = 3500.0
+time_init = 3.154e7     # 1 yr
+time_end = 3.154e16     # 1 Gyr
+temperature_step_init = 20.0
+
+rtol_flux = 1.0e-3
+atol_flux = 1.0
+rtol_brentq = 1.0e-2
+atol_brentq = 1.0e-10
+
+is_radioactive = true
+is_atm = true
+is_full_convection = false
+is_CO2 = true
+is_H2O_loss = true
+is_new_calculation = true
+restart = false
+verbose = true
+
+# ----------------------------------------------------------------------------
+# PLANET
+# ----------------------------------------------------------------------------
+[planet]
+planet_mass = 5.972e24
+surface_radius = 6.378e6
+core_depth = 2.885e6
+surface_pressure = 1.0e5
+surface_albedo = 0.3
+year = 3.154e7
+surface_grav = 9.81
+
+# ----------------------------------------------------------------------------
+# MANTLE
+# ----------------------------------------------------------------------------
+[mantle]
+molten_density = 4000.0
+solid_density = 4200.0
+partial_density = 4100.0
+average_density = 3000.0
+average_core_density = 12000.0
+crust_Cp = 1000.0
+thermal_diffusivity = 1.0e-6
+melting_enthalpy = 4.0e5
+thermal_expansion_cst = 3.0e-5
+critical_fraction = 0.4
+K0 = 200.0e9
+K = 4
+m = 0
+C0 = 0.089
+melting_curve_type = "salvador"
+core_radius_fraction = 0.325
+core_mass_fraction = 0.33
+
+# ----------------------------------------------------------------------------
+# VISCOSITY
+# ----------------------------------------------------------------------------
+[viscosity]
+type = "salvador"
+
+# ----------------------------------------------------------------------------
+# OUTGASSING
+# ----------------------------------------------------------------------------
+[outgassing]
+# Paramètres de dégazage
+x_H2O_0 = 1.5e-3        # 4.2e21 kg
+x_CO2_0 = 2.5e-4        # 1.e21 kg
+mu_H2O = 18.0e-3
+mu_CO2 = 44.0e-3
+mu_N2 = 28.0e-3
+p_N2 = 5.0e5
+k_H2O_prevov = 1.0e-4
+k_H2O_lherz = 1.1e-2
+k_CO2_prevov = 5.0e-4
+k_CO2_lherz = 2.1e-3
+
+# ----------------------------------------------------------------------------
+# RADIOGENIC_HEAT
+# ----------------------------------------------------------------------------
+[radiogenic_heat]
+earth_age = 4.55e9
+T_U238 = 4.46e9
+H_U238 = 9.17e-5
+ab_U238 = 0.9928
+c_U = 0.02e-6
+T_U235 = 7.04e8
+H_U235 = 5.75e-4
+ab_U235 = 0.0072
+T_Th = 1.40e10
+H_Th = 2.56e-5
+ab_Th = 1.0
+c_Th = 0.069e-6
+T_K = 1.26e9
+H_K = 2.97e-5
+ab_K = 0.0117e-2
+c_K = 270.0e-6
+T_Al = 7.23e5
+H_Al = 3.54e-1
+ab_Al = 0.005e-2
+c_Al = 8650.0e-6
+
+# ----------------------------------------------------------------------------
+# STAR - TRAPPIST-1 avec évolution stellaire
+# ----------------------------------------------------------------------------
+[star]
+stellar_radius = 8.3e7
+stellar_distance = 1.496e11     # 1 UA
+stellar_temperature = 2566.0
+sun_age = 4.55e9
+
+name = "trappist1"
+use_evolution = true
+early_static = true
+early_static_factor = 0.676     # Early trappist1 7Gyr ago
+stellar_distance_factor = 0.09
+
+# ----------------------------------------------------------------------------
+# ATMOSPHERE
+# ----------------------------------------------------------------------------
+[atmosphere]
+star_spectrum = "trappist1"
+
+# Paramètres de calcul atmosphérique
+Nlay = 50
+N_timestep_min = 100
+N_timestep_max = 20000
+atm_radiative = false
+atm_convection = true
+atm_condensation = false
+
+rayleigh = true
+compute_mass_fluxes = true
+Kzz = 1.0e-2
+Kzz_pressure_factor = -1.0
+Kzz_min = 0.0
+mix_enthalpy = false
+evap_coeff = 1.0
+dTmax_use_kernel = 10.0
+qcond_surf_layer = 0.1
+q_cloud = 0.0
+humidity_distribution_width = -1.0
+acceleration_mode = 4
+radiative_acceleration_factor = 1.0
+convective_acceleration_factor = 1.0
+condensation_timestep_reducer = 0.01
+convective_acceleration_mode = 2
+lock_acc_conv_zones = false
+convergence_max_iterations = 30
+convergence_Tsurf_tolerance = 1.0
+convergence_Fnet_mean_threshold = 1.0
+convergence_fine_tuning_start = 10
+convergence_ultra_fine_start = 20
+
+# ----------------------------------------------------------------------------
+# OUTPUT
+# ----------------------------------------------------------------------------
+[output]
+output_dir = "Output"
+figure_dir = "Output/Figure"
