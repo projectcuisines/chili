@@ -1,39 +1,103 @@
-# CHILI protocol paper – inputs and example test results
+# CHILI main intercomparison – input and output files
 
-This directory contains the results of the example test results presented in the CHILI protocol paper. Each participating model deposits their data in a sub-folder in the repository. The data output CSV file(s) should be accompanied by a TXT file that lists (in itemized form) all major noteworthy characteristics of a code that deviate from published code descriptions. For example, changes to the code that were made to adhere to the CHILI protocol, as-of-yet unpublished updates to a code, or conversions of output data to comply with the required units, etc. 
+This directory will contain the main CHILI intercomparison project files. Each participating model deposits their data in a sub-folder in the repository. The data output CSV file(s) should be accompanied by a TXT file that lists (in itemized form) all major noteworthy characteristics of a code that deviate from published code descriptions. For example, changes to the code that were made to adhere to the CHILI protocol, as-of-yet unpublished updates to a code, or conversions of output data to comply with the required units, etc. 
 
-In addition, all code folders need to contain the exact config files that were used to generate the code output and in the notes TXT file need to list how the code can be obtained. Optimally, this links to a permanent code Zenodo archive, or states a published code version on an open-source GitHub (or similar) repository. At minimum, a contact e-mail needs to be stated for how the respective code version can be obtained from one of the participating authors. All submitted data needs to be <10 MB to not overburden the repository.
+In addition, all code folders need to contain the exact config files that were used to generate the code output and in the notes TXT file need to list how the code can be obtained. Optimally, this links to a permanent code Zenodo archive, or states a published code version on an open-source GitHub (or similar) repository. At minimum, a contact e-mail needs to be stated for how the respective code version can be obtained from one of the participating authors.
+
+Optimally, please create a new branch with your files, create and modify folders and files as necessary in this branch, and then create a pull request to ``main``. We will then review the pull request on adherence to the requested data structures. All code names are written in lowercase letters in this repository, irrespective of their particular capitalization. For example ``moachi`` instead of ``MOAChi``.
 
 ## Output format
 
 > [!IMPORTANT]  
 > Each individual output file should not exceed a file size of 1 MB, and the total output size for each code cannot exceed 10 MB.
 
-
 ## Directory structure
 
 Each model has its own directory in ``inputs`` and ``outputs`` to store config files, notes, and outputs.
-Each model should adhere to the following structure (with examples):
+Each model should adhere to the following structure, with examples for one evolution model (``model1``) and one static model (``model2``):
 ```
 inputs/
 ├── model1/
 │   └── evolution-model1-earth-config.in
+│   └── evolution-model1-venus-config.in
+│   └── evolution-model1-trappist1alpha-config.in
 │   └── evolution-model1-trappist1b-config.in
+│   └── evolution-model1-trappist1e-config.in
 ├── model2/
+│   └── static-model2-earth-tau3-cold-config.in
+│   └── static-model2-earth-tau3-hot-config.in
+│   └── static-model2-earth-tau5-cold-config.in
+│   └── static-model2-earth-tau5-hot-config.in
+│   └── static-model2-earth-tau7-cold-config.in
+│   └── static-model2-earth-tau7-hot-config.in
+│   └── static-model2-venus-tau3-cold-config.in
+│   └── static-model2-venus-tau3-hot-config.in
+│   └── static-model2-venus-tau5-cold-config.in
+│   └── static-model2-venus-tau5-hot-config.in
+│   └── static-model2-venus-tau7-cold-config.in
+│   └── static-model2-venus-tau7-hot-config.in
+│   └── static-model2-trappist1alpha-tau3-cold-config.in
+│   └── static-model2-trappist1alpha-tau3-hot-config.in
+│   └── static-model2-trappist1alpha-tau5-cold-config.in
+│   └── static-model2-trappist1alpha-tau5-hot-config.in
+│   └── static-model2-trappist1alpha-tau7-cold-config.in
+│   └── static-model2-trappist1alpha-tau7-hot-config.in
+│   └── static-model2-trappist1b-tau3-cold-config.in
+│   └── static-model2-trappist1b-tau3-hot-config.in
+│   └── static-model2-trappist1b-tau5-cold-config.in
 │   └── static-model2-trappist1b-tau5-hot-config.in
+│   └── static-model2-trappist1b-tau7-cold-config.in
+│   └── static-model2-trappist1b-tau7-hot-config.in
+│   └── static-model2-trappist1e-tau3-cold-config.in
+│   └── static-model2-trappist1e-tau3-hot-config.in
+│   └── static-model2-trappist1e-tau5-cold-config.in
+│   └── static-model2-trappist1e-tau5-hot-config.in
+│   └── static-model2-trappist1e-tau7-cold-config.in
+│   └── static-model2-trappist1e-tau7-hot-config.in
 outputs/
 ├── model1/
 │   └── evolution-model1-earth-data.csv
+│   └── evolution-model1-venus-data.csv
+│   └── evolution-model1-trappist1alpha-data.csv
 │   └── evolution-model1-trappist1b-data.csv
+│   └── evolution-model1-trappist1e-data.csv
 │   └── evolution-model1-notes.txt
 ├── model2/
-│   └── static--model2-trappist1b-tau5-hot-data.csv
+│   └── static-model2-earth-tau3-cold-data.csv
+│   └── static-model2-earth-tau3-hot-data.csv
+│   └── static-model2-earth-tau5-cold-data.csv
+│   └── static-model2-earth-tau5-hot-data.csv
+│   └── static-model2-earth-tau7-cold-data.csv
+│   └── static-model2-earth-tau7-hot-data.csv
+│   └── static-model2-venus-tau3-cold-data.csv
+│   └── static-model2-venus-tau3-hot-data.csv
+│   └── static-model2-venus-tau5-cold-data.csv
+│   └── static-model2-venus-tau5-hot-data.csv
+│   └── static-model2-venus-tau7-cold-data.csv
+│   └── static-model2-venus-tau7-hot-data.csv
+│   └── static-model2-trappist1alpha-tau3-cold-data.csv
+│   └── static-model2-trappist1alpha-tau3-hot-data.csv
+│   └── static-model2-trappist1alpha-tau5-cold-data.csv
+│   └── static-model2-trappist1alpha-tau5-hot-data.csv
+│   └── static-model2-trappist1alpha-tau7-cold-data.csv
+│   └── static-model2-trappist1alpha-tau7-hot-data.csv
+│   └── static-model2-trappist1b-tau3-cold-data.csv
+│   └── static-model2-trappist1b-tau3-hot-data.csv
+│   └── static-model2-trappist1b-tau5-cold-data.csv
+│   └── static-model2-trappist1b-tau5-hot-data.csv
+│   └── static-model2-trappist1b-tau7-cold-data.csv
+│   └── static-model2-trappist1b-tau7-hot-data.csv
+│   └── static-model2-trappist1e-tau3-cold-data.csv
+│   └── static-model2-trappist1e-tau3-hot-data.csv
+│   └── static-model2-trappist1e-tau5-cold-data.csv
+│   └── static-model2-trappist1e-tau5-hot-data.csv
+│   └── static-model2-trappist1e-tau7-cold-data.csv
+│   └── static-model2-trappist1e-tau7-hot-data.csv
 │   └── static-model2-notes.txt
 │ ...
 ```
 
-See further down for naming conventions. All models should deposit all information necessary to recreate the protocol output data in the future in their respective ``inputs/model/`` folder.
-
+See further down for an explanation of naming conventions. All models should deposit all information necessary to recreate the protocol output data in the future in their respective ``inputs/model/`` folder. Additional subfolders can be create in both input and output folders if necessary, but together both folders need to stay witin the 10 MB upper file limit size. This limits in particular the upload of model-specific plots.
 
 ### Evolution models
 Output data is saved as CSV files (```evolution-<model_name>-<planet>-data.csv```) in this format, with *commas as separator*:
@@ -53,11 +117,11 @@ with
 Code notes should be submitted as ```evolution-<model_name>-notes.txt``` in ```outputs/model/```. Code config files should (if possible) adhere to the naming convention ```evolution-<model_name>-<planet>-config```, with the file type model-specific (e.g., ```.toml```).
 
 For example, a complete set of protocol input/output files for the evolutionary code GOOEY might look like:
-- ```inputs/gooey/evolution-GOOEY-earth-config.in```
-- ```inputs/gooey/evolution-GOOEY-trappist1b-config.in```
-- ```outputs/gooey/evolution-GOOEY-earth-data.csv```
-- ```outputs/gooey/evolution-GOOEY-trappist1b-data.csv```
-- ```outputs/gooey/evolution-GOOEY-notes.txt```
+- ```inputs/gooey/evolution-gooey-earth-config.in```
+- ```inputs/gooey/evolution-gooey-trappist1b-config.in```
+- ```outputs/gooey/evolution-gooey-earth-data.csv```
+- ```outputs/gooey/evolution-gooey-trappist1b-data.csv```
+- ```outputs/gooey/evolution-gooey-notes.txt```
 
 ### Static models
 
