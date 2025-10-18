@@ -22,6 +22,6 @@ This repository is structured as follows:
 - ``protocol`` contains the configs and results of codes from the CHILI protocol paper
 - ``intercomparison`` contains the configs and results of codes participating in the main CHILI intercomparison project
 
-Please see the README file inside the ``intercomparison`` folder for instructions on how to submit the output data from your magma ocean code to CHILI. If you want to join CHILI, please first read the CHILI protocol paper (_pdf here soon_) and then get in touch with chili_admin@rockyworlds.org. This is an open community project, so we encourage you to reach out and join the intercomparison!
+Please see the README file inside the ``intercomparison`` folder for instructions on how to submit the output data from your magma ocean code to CHILI. If you want to join CHILI, please first read the CHILI protocol paper (_pdf here soon_) and then get in touch with chili_admin@rockyworlds.org. We plan and execute CHILI in [this project roadmap](https://github.com/orgs/projectcuisines/projects/1). This is an open community project, so we encourage you to reach out and join the intercomparison!
 
 
