@@ -100,7 +100,7 @@ outputs/
 See further down for an explanation of naming conventions. All models should deposit all information necessary to recreate the protocol output data in the future in their respective ``inputs/model/`` folder. Additional subfolders can be create in both input and output folders if necessary, but together both folders need to stay witin the 10 MB upper file limit size. This limits in particular the upload of model-specific plots.
 
 ### Evolution models
-Output data from time-evolved models is saved as CSV files (```evolution-<model_name>-<planet>-data.csv```) with *commas as column separators*. The column headers should be:
+Output data from time-evolved models is saved as CSV files (```outputs/<model_name>/evolution-<model_name>-<planet>-data.csv```) with *commas as column separators*. The column headers should be:
 
 - ```t(yr)```             Time in years
 - ```T_surf(K)```         Surface temperature
@@ -130,7 +130,9 @@ Output data from time-evolved models is saved as CSV files (```evolution-<model_
 - ```R_trans(m)```        Transit radius of the planet in Earth radii
 - ```R_solid(m)```        Radius of the rheological transition in the mantle
 
-Code notes should be submitted as ```evolution-<model_name>-notes.txt``` in ```outputs/model/```. Code config files should (if possible) adhere to the naming convention ```evolution-<model_name>-<planet>-config```, with the file type model-specific (e.g., ```.toml```).
+Code notes should be submitted as ```evolution-<model_name>-notes.txt``` in ```outputs/<model_name>/```. 
+
+Code config files should (if possible) adhere to the naming convention ```evolution-<model_name>-<planet>-config```, with the file type model-specific (e.g., ```.toml```), in ```inputs/<model_name>/```.
 
 ### Static models
 
@@ -147,8 +149,8 @@ Output data from static models is also saved as CSV files (``static-<modelname>-
 - ```p_O2(bar)```       Partial atmospheric pressure of O2 at height z
 
 Submitted output files for the static models should be:
-- ```static-<modelname>-<planet>-tau[3-9]-[hot,cold]-config```: any code config files necessary to recreate the output data, file type code-specific
-- ```static-<modelname>-<planet>-tau[3-9]-[hot,cold]-data.csv```
-- ```static-<modelname>-notes.txt```
+- ```inputs/<model_name>/static-<modelname>-<planet>-tau[3-9]-[hot,cold]-config```: any code config files necessary to recreate the output data, file type code-specific
+- ```outputs/<model_name>/static-<modelname>-<planet>-tau[3-9]-[hot,cold]-data.csv```
+- ```outputs/<model_name>/static-<modelname>-notes.txt```
 
 The choice of the ages (&#120591;<sub>3</sub> - &#120591;<sub>9</sub>) will depend on the outcome of the evolutionary calculations, i.e., come later.
