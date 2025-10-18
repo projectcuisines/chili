@@ -10,7 +10,7 @@ In addition, all code folders need to contain the exact config files that were u
 > Each individual output file should not exceed a file size of 1 MB, and the total output size for each code cannot exceed 10 MB.
 
 ### Evolution models
-Output data is saved as CSV files (```evolution-<model_name>-<planet>.csv```) in this format, with *commas as separator*:
+Output data is saved as CSV files (```evolution-<model_name>-<planet>-data.csv```) in this format, with *commas as separator*:
 
 | t(yr)     | T_surf(K) | phi(vol_frac) | p_H2O(bar)     |
 |-----------|-----------|---------------|----------------|
@@ -19,58 +19,45 @@ Output data is saved as CSV files (```evolution-<model_name>-<planet>.csv```) in
 
 with
 
-- ```t(yr)```:           Time in years
-- ```T_surf(K)```:       Surface temperature
-- ```phi(vol_frac)```:   Mantle total volume fraction of melt
-- ```p_H2O(bar)```:      Partial pressure of water in the atmosphere
+- ```t(yr)```        : Time in years
+- ```T_surf(K)```    : Surface temperature
+- ```phi(vol_frac)```: Mantle total volume fraction of melt
+- ```p_H2O(bar)```   : Partial pressure of water in the atmosphere
 
 Code notes should be submitted as ```evolution-<model_name>-notes.txt```. Code input/configuration files should adhere to the naming convention ```evolution-<model_name>-<planet>-config```, with the file type model-specific (e.g., ```.toml```).
 
-For example, a complete set of protocol input/output files for code GOOEY might look like:
-- ```evolution-GOOEY-earth.csv```
-- ```evolution-GOOEY-trappist1b.csv```
+For example, a complete set of protocol input/output files for the evolutionary code GOOEY might look like:
+- ```evolution-GOOEY-earth-data.csv```
+- ```evolution-GOOEY-trappist1b-data.csv```
 - ```evolution-GOOEY-notes.txt```
 - ```evolution-GOOEY-earth-config.toml```
 - ```evolution-GOOEY-trappist1b-config.toml```
 
 ### Static models
 
-#### Surface chemistry models
-Output data is saved as CSV files (``<model_name>-surface.csv``) in this format:
+Output data is saved as CSV files (``static-<modelname>-<planet>-tau[3-9]-[hot,cold]-data.csv``) in this format, with *commas as separator*:
 
-| mol_name  | p_i (bar) |
-|-----------|-----------|
-| H2O       | ...       |
-| CO2       | ...       |
-| ...       | ...       |
-
-with
-
-- ```mol_name```  : Molecule formula (e.g., H2O)
-- ```p_i (bar)``` : Surface partial pressure in bar
-
-#### Atmospheric structure models
-Output data is saved as CSV files (``<model_name>-atm.csv``) in this format:
-
-| z (m)       | P_tot (bar) | T (K)       | p_H2O (bar) | p_CO2 (bar) | p_i (bar)   |
-|-------------|-------------|-------------|-------------|-------------|-------------|
-| 0           | ...         | ...         | ...         | ...         | ...         |
-| ...         | ...         | ...         | ...         | ...         | ...         |
-| ...         | ...         | ...         | ...         | ...         | ...         |
+| z(m)        | p_tot(bar)  | T(K)        | p_H2O(bar)  | 
+|-------------|-------------|-------------|-------------|
+| 0           | ...         | ...         | ...         |
+| ...         | ...         | ...         | ...         |
+| ...         | ...         | ...         | ...         |
 
 with
 
 - ```z (m)```        : Height in atmosphere in meters, starting from 0
-- ```P_tot (bar)```  : Total pressure at height z in bar
-- ```T (K)```        : Temperature at height z in Kelvin
--  ```p_H2O (bar)``` : Partial pressure of H2O at height z in bar
--  ```p_CO2 (bar)``` : Partial pressure of CO2 at height z in bar
--  ```p_i (bar)```   : Partial pressure of species i at height z in bar, can be many
+- ```p_tot(bar)```   : Total pressure at height z in bar
+- ```T(K)```         : Temperature at height z in Kelvin
+- ```p_H2O(bar)```   : Partial pressure of H2O at height z in bar
 
+Submitted output files for the static models should be:
+- ```static-<modelname>-<planet>-tau[3-9]-[hot,cold]-data.csv```
+- ```static-<modelname>-notes.txt```
+- ```static-<modelname>-<planet>-tau[3-9]-[hot,cold]-config```: any code config files necessary to recreate the output data, file type code-specific
 
 ## Directory structure
 
-Each model has its own directory in ``inputs`` and ``outputs`` to store input files and outputs.
+Each model has its own directory in ``inputs`` and ``outputs`` to store config files, notes, and outputs.
 Each model should adhere to the following structure:
 ```
 inputs/
