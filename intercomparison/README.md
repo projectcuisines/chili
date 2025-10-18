@@ -4,7 +4,9 @@ This directory will contain the main CHILI intercomparison project files. Each p
 
 In addition, all code folders need to contain the exact config files that were used to generate the code output and in the notes TXT file need to list how the code can be obtained. Optimally, this links to a permanent code Zenodo archive, or states a published code version on an open-source GitHub (or similar) repository. At minimum, a contact e-mail needs to be stated for how the respective code version can be obtained from one of the participating authors.
 
-Optimally, please create a new branch with your files, create and modify folders and files as necessary in this branch, and then create a pull request to ``main``. We will then review the pull request on adherence to the requested data structures. All code names are written in lowercase letters in this repository, irrespective of their particular capitalization. For example ``moachi`` instead of ``MOAChi``.
+Optimally, please create a new branch with your files, create and modify folders and files as necessary in this branch, and then create a pull request to ``main``. We will then review the pull request on adherence to the requested data structures. You can find [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) instructions on how to create a pull request. If that does not work out, please simply email the organisers and we will add your data to the repository.
+
+All code names are written in lowercase letters in this repository, irrespective of their particular capitalization. For example ``moachi`` instead of ``MOAChi``.
 
 ## Output format
 
