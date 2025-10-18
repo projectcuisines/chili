@@ -9,6 +9,32 @@ In addition, all code folders need to contain the exact config files that were u
 > [!IMPORTANT]  
 > Each individual output file should not exceed a file size of 1 MB, and the total output size for each code cannot exceed 10 MB.
 
+
+## Directory structure
+
+Each model has its own directory in ``inputs`` and ``outputs`` to store config files, notes, and outputs.
+Each model should adhere to the following structure (with examples):
+```
+inputs/
+├── model1/
+│   └── evolution-model1-earth-config.in
+│   └── evolution-model1-trappist1b-config.in
+├── model2/
+│   └── static-model2-trappist1b-tau5-hot-config.in
+outputs/
+├── model1/
+│   └── evolution-model1-earth-data.csv
+│   └── evolution-model1-trappist1b-data.csv
+│   └── evolution-model1-notes.txt
+├── model2/
+│   └── static--model2-trappist1b-tau5-hot-data.csv
+│   └── static-model2-notes.txt
+│ ...
+```
+
+See further down for naming conventions. All models should deposit all information necessary to recreate the protocol output data in the future in their respective ``inputs/model/`` folder.
+
+
 ### Evolution models
 Output data is saved as CSV files (```evolution-<model_name>-<planet>-data.csv```) in this format, with *commas as separator*:
 
@@ -24,14 +50,14 @@ with
 - ```phi(vol_frac)```: Mantle total volume fraction of melt
 - ```p_H2O(bar)```   : Partial pressure of water in the atmosphere
 
-Code notes should be submitted as ```evolution-<model_name>-notes.txt```. Code input/configuration files should adhere to the naming convention ```evolution-<model_name>-<planet>-config```, with the file type model-specific (e.g., ```.toml```).
+Code notes should be submitted as ```evolution-<model_name>-notes.txt``` in ```outputs/model/```. Code config files should (if possible) adhere to the naming convention ```evolution-<model_name>-<planet>-config```, with the file type model-specific (e.g., ```.toml```).
 
 For example, a complete set of protocol input/output files for the evolutionary code GOOEY might look like:
-- ```evolution-GOOEY-earth-data.csv```
-- ```evolution-GOOEY-trappist1b-data.csv```
-- ```evolution-GOOEY-notes.txt```
-- ```evolution-GOOEY-earth-config.toml```
-- ```evolution-GOOEY-trappist1b-config.toml```
+- ```inputs/gooey/evolution-GOOEY-earth-config.in```
+- ```inputs/gooey/evolution-GOOEY-trappist1b-config.in```
+- ```outputs/gooey/evolution-GOOEY-earth-data.csv```
+- ```outputs/gooey/evolution-GOOEY-trappist1b-data.csv```
+- ```outputs/gooey/evolution-GOOEY-notes.txt```
 
 ### Static models
 
@@ -51,30 +77,11 @@ with
 - ```p_H2O(bar)```   : Partial pressure of H2O at height z in bar
 
 Submitted output files for the static models should be:
+- ```static-<modelname>-<planet>-tau[3-9]-[hot,cold]-config```: any code config files necessary to recreate the output data, file type code-specific
 - ```static-<modelname>-<planet>-tau[3-9]-[hot,cold]-data.csv```
 - ```static-<modelname>-notes.txt```
-- ```static-<modelname>-<planet>-tau[3-9]-[hot,cold]-config```: any code config files necessary to recreate the output data, file type code-specific
 
-## Directory structure
-
-Each model has its own directory in ``inputs`` and ``outputs`` to store config files, notes, and outputs.
-Each model should adhere to the following structure:
-```
-inputs/
-├── model1/
-│   └── <input file 1>
-│   └── <input file 2>
-│   └── ...
-├── model2/
-│   └── <input file 1>
-│   └── ...
-outputs/
-├── model1/
-│   └── model1-earth.csv
-│   └── model1-trappist1b.csv
-├── model2/
-│   └── model2-earth.csv
-│   └── model2-trappist1b.csv
-```
-
-The output files should all be named as ``<model_name>-earth.csv`` or ``<model_name>-trappist1b.csv`` etc. All models should deposit all information necessary to recreate the protocol output data in the future in their respective ``inputs/model/`` folder.
+For example, a complete set of protocol input/output files for the static code MOAChi might look like:
+- ```inputs/moachi/static-MOAChi-trappist1b-tau5-hot-config.in```
+- ```outputs/moachi/static-MOAChi-trappist1b-tau5-hot-data.csv```
+- ```outputs/moachi/static-MOAChi-notes.txt```
