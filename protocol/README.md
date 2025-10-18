@@ -7,7 +7,7 @@ This directory contains the results of the first protocol results developed in t
 ### Evolution models
 Output data is saved as CSV files in this format:
 
-| time (yr) | Tsurf (K) | pH2O (bar) | phi (vol_frac) |
+| t(yr)     | T_surf(K) | p_H2O(bar) | phi(vol_frac)  |
 |-----------|-----------|------------|----------------|
 | ...       | ...       | ...        | ...            |
 | ...       | ...       | ...        | ...            |
