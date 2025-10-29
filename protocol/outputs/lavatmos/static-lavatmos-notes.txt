@@ -1,0 +1,13 @@
+Output files content:
+
+static-lavatmos-trappist1b-tau5-proteus.csv: 
+file that lavatmos outputs for C and H atmosphere. However, this case is not realistic because it is very reduced as all oxygen comes from the melt
+
+static-lavatmos-trappist1b-tau5-hot-Hatmo-data.csv: 
+output for a pure H envelope for 1800 K
+
+static-lavatmos-trappist1b-tau5-hot-data1.csv: 
+output for pure H envelope at 1870 K, where the surface pressure is scaled towards the H-abundance in the PROTEUS output. Format is as required for the protocol and this should be the case which is plotted.
+
+static-lavatmos-trappist1b-tau5-hot-data2.csv: 
+output for pure H envelope at 1870 K, where the surface pressure is not scaled towards the H-abundance in the PROTEUS output. Format is as required for the protocol
