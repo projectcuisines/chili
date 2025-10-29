@@ -9,12 +9,6 @@ download, install, and run this version of
 PACMAN-P, which slightly differs from PACMAN-P 
 Version 1.0 (Krissansen-Totton et al. 2024).
 
-For specific questions regarding any settings
-or values used to produce the output data not
-clarified in README.txt, Krissansen-Totton et 
-al. 2024, or the CHILI protocol publication,
-contact agp99@uw.edu.
-
 -TRAPPIST-1b data file was updated 22.10.2025 
 such that the initial free oxygen inventory 
 is the same for the Earth and TRAPPIST-1b 
