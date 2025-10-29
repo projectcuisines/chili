@@ -1,3 +1,8 @@
+Contact person(s): Leoni Janssen & Yamila Miguel
+Email: ljanssen@strw.leidenuniv.nl / ymiguel@strw.leidenuniv.nl
+Code version used:
+Code archived at:
+
 Output files content:
 
 static-lavatmos-trappist1b-tau5-proteus.csv: 
