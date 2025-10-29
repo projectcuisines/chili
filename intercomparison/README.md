@@ -22,6 +22,15 @@ inputs/
 ├── model1/
 │   └── evolution-model1-earth-config.in
 │   └── evolution-model1-venus-config.in
+│   └── evolution-model1-earth-grid-Hlow-Clow-config.in
+│   └── evolution-model1-earth-grid-Hlow-Cmid-config.in
+│   └── evolution-model1-earth-grid-Hlow-Chigh-config.in
+│   └── evolution-model1-earth-grid-Hmid-Clow-config.in
+│   └── evolution-model1-earth-grid-Hmid-Cmid-config.in
+│   └── evolution-model1-earth-grid-Hmid-Chigh-config.in
+│   └── evolution-model1-earth-grid-Hhigh-Clow-config.in
+│   └── evolution-model1-earth-grid-Hhigh-Cmid-config.in
+│   └── evolution-model1-earth-grid-Hhigh-Chigh-config.in
 │   └── evolution-model1-trappist1alpha-config.in
 │   └── evolution-model1-trappist1b-config.in
 │   └── evolution-model1-trappist1e-config.in
@@ -60,6 +69,15 @@ outputs/
 ├── model1/
 │   └── evolution-model1-earth-data.csv
 │   └── evolution-model1-venus-data.csv
+│   └── evolution-model1-earth-grid-Hlow-Clow-data.csv
+│   └── evolution-model1-earth-grid-Hlow-Cmid-data.csv
+│   └── evolution-model1-earth-grid-Hlow-Chigh-data.csv
+│   └── evolution-model1-earth-grid-Hmid-Clow-data.csv
+│   └── evolution-model1-earth-grid-Hmid-Cmid-data.csv
+│   └── evolution-model1-earth-grid-Hmid-Chigh-data.csv
+│   └── evolution-model1-earth-grid-Hhigh-Clow-data.csv
+│   └── evolution-model1-earth-grid-Hhigh-Cmid-data.csv
+│   └── evolution-model1-earth-grid-Hhigh-Chigh-data.csv
 │   └── evolution-model1-trappist1alpha-data.csv
 │   └── evolution-model1-trappist1b-data.csv
 │   └── evolution-model1-trappist1e-data.csv
@@ -102,7 +120,7 @@ outputs/
 See further down for an explanation of naming conventions. All models should deposit all information necessary to recreate the protocol output data in the future in their respective ``inputs/model/`` folder. Additional subfolders can be create in both input and output folders if necessary, but together both folders need to stay witin the 10 MB upper file limit size. This limits in particular the upload of model-specific plots.
 
 ### Evolution models
-Output data from time-evolved models is saved as CSV files (```outputs/<model_name>/evolution-<model_name>-<planet>-data.csv```) with *commas as column separators*. The column headers should be:
+Output data from time-evolved models is saved as CSV files (```outputs/<model_name>/evolution-<model_name>-<planet>-data.csv``` and ```outputs/<model_name>/evolution-<modelname>-earth-grid-H[low,mid,high]-C[low,mid,high]-data.csv```) with *commas as column separators*. The column headers should be:
 
 - ```t(yr)```             Time in years
 - ```T_surf(K)```         Surface temperature
