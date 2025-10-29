@@ -1,4 +1,5 @@
 - PROTEUS repo at: https://github.com/FormingWorlds/PROTEUS
 - Used version: https://github.com/FormingWorlds/PROTEUS/releases/tag/25.10.15
-- Volumetric mantle melt fracion was interpolated from wt% data, which is natively outputted by the code
-- Additional output data at tau_i was generated to allow test example comparison with MOAChi
+- Volumetric mantle melt fracion was calculated from mass-fraction data, which is natively modelled by the code.
+- Additional output atmospheric profile data at tau-i is provided to allow test example comparison with MOAChi.
+- Files `earth-data.csv` and `trappist1b-data.csv` contain the primary data for comparison between evolutionary models. These contain additional columns beyond those required by the protocol, defined for the main intercomparison in Table 3 of the protocol.
