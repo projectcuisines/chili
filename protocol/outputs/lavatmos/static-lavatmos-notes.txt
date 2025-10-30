@@ -1,7 +1,7 @@
 Contact person(s): Leoni Janssen & Yamila Miguel
 Email: ljanssen@strw.leidenuniv.nl / ymiguel@strw.leidenuniv.nl
-Code version used: 
-Code archived at:
+Code version used: https://github.com/cvbuchem/LavAtmos 30.10.2025
+Code archived at: https://github.com/cvbuchem/LavAtmos 
 
 Output files content:
 
