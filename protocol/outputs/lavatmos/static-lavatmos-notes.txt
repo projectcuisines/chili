@@ -5,5 +5,5 @@ Code archived at: https://github.com/cvbuchem/LavAtmos
 
 Output files content:
 
-static-lavatmos-trappist1b-tau5-hot-data1.csv: 
-output for pure H envelope at 1870 K, where the surface pressure is scaled towards the H-abundance in the PROTEUS output. Format is as required for the protocol and this should be the case which is plotted.
+static-lavatmos-trappist1b-tau5-hot-data.csv: 
+- output for pure H envelope at 1870 K, where the surface pressure is scaled towards the H-abundance in the PROTEUS output. 
