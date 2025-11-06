@@ -1,0 +1,99 @@
+%magma_ocean_evolution.m
+%This it the control script for the magma ocean evolution model described
+%in Schaefer et al. (2016) ApJ, 829:63
+
+%Magma Ocean Model for Earth as described in the CHILI protocol paper
+%constants
+G = 6.67e-11;                             % Gravitational constnat [m3/kg/s2]
+sigma = 5.67e-8;                          % Boltzmann's constant [W/m2/K4]
+MSun    = 1.989e30;                       % sun mass [kg]
+LSun    = 3.846e26;                       % sun luminosity [W]
+AU      = 149597871*1e3;                  % earth semimajor axis [m]
+MEarth = 5.97e24;                         % Earth mass [kg]
+REarth = 6371e3;                          % Earth radius [m]
+Earth_ocean = 1.39e21;                    % mass of 1 Earth ocean [kg]
+muO = 15.9994e-3;                         % atomic weight of O in [kg/mole]
+muFeO1_5 = 159.689e-3 / 2;                % molecular weight of FeO1.5 [kg/mole]
+muFeO = 71.845e-3;                        % molecular weight of FeO [kg/mole]
+Cp = 1.2e3;                               % silicate heat capacity [J/kg/K]
+alpha = 2e-5;                             % silicate thermal expansion [1/K]
+
+%OLRdata.mat has the T_surf/P_atm grid that Robin Wordsworth calculated
+%The meshgrid allows interpolation of the OLR data
+load('OLRdata.mat')
+[Ts,Ps] = meshgrid(Temp_K,P_Pa);
+
+% load G-star luminosity track data from Baraffe+2015
+load('solar_data.mat'); t_flux = t; clear t;
+
+%choose which XUV flux model to use by commenting/uncommenting next lines
+%XUV model A = high flux, XUV model B = low flux
+%See Fig. 2 in Schaefer et al. 2016
+% model = 1; %XUV Flux A, high XUV flux
+model = 2; %XUV Flux B, low XUV flux
+
+% Star properties
+MStar   = 1;                          % mass of sun [MSun]
+LStar   = 1;                        % luminosity of sun [LSun]
+Tday    = 356.25;                       % orbital period [days]
+Omega   = 2*pi/(Tday*86400);              % orbital frequency [rad/s]
+a       = (G*MSun*MStar/Omega^2)^0.33333; % semimajor axis [m]
+Fat1AU  = LStar*1366;                     % flux  at 1 AU [W/m2]
+
+% planet flux
+Fstel       = Fat1AU*(AU/a)^2;             % flux at planet's orbit [W/m2]
+Albedo       = 0.1;                       % planet albedo []
+ASR   = (1-Albedo)*Fstel/4;                % absorbed stellar radiation [W/m2]
+
+%Planet properties
+% Earth
+Mp = 1 * MEarth;                        % planet mass [kg]
+Rp = 1 * REarth;                        % planet radius [m]
+Rc = 0.571 * Rp;                            % core radius [m]
+core_fraction = 0.32;                     % core mass fraction 
+Mmantle = (1 - core_fraction) * Mp;        % mantle mass [kg]
+Teq = (ASR/sigma)^0.25;                    % equilibrium temperature [K]
+gp = G * Mp / Rp^2;                        % graviational acceleration [m/s2]
+rho = Mmantle/(4/3*pi*(Rp^3-Rc^3));        % mantle density [kg/m3]
+
+%Choose initial mantle water and iron abundances - can change these
+%parameters for different runs. Note if you change FeOt or Fe3_Fet to also
+%change these parameters in the file get_comp.m
+MH2O = 3 * Earth_ocean;                   % planetary water abundance [kg]
+FH2O = MH2O/Mmantle;                       % mass fraction of water in mantle
+FeOt = 0.08;                               % mass fraction of FeO* in mantle
+Fe3_Fet = 0.05;                            % fraction of FeO* that is in Fe2O3
+
+%solidus temperature parameters
+%Tsolidus = Tsol1 * P(Pa) + Tsol2
+Tsol1 = 26.53e-9;                           % [K/Pa]
+Tsol2 = 1825;                               % [K]
+
+%import the mole fraction of the oxides in the mantle, 1 = BSE, 2 = BSMars
+Xi = get_comp(1); 
+
+
+%% initial conditions for differential equations
+%eqn(1): mantle temperature evolution
+%eqn(2): radius of solidification evolution
+%eqn(3): water in solid mantle evolution
+%eqn(4): water in magma ocean + atmosphere evolution
+%eqn(5): oxygen in magma ocean + atmosphere evolution
+%eqn (6): oxygen in solid mantle evolution
+%eqn (7): surface temperature evolution
+
+Tr0(1) = 3600;                              %intial potential temperature 
+Tr0(2) = Rp - (Tr0(1) - Tsol2)*Cp/(Tsol1*...%initial depth to base of magma ocean
+    rho*gp*Cp - alpha*gp*Tr0(1));           
+if Tr0(2) < Rc;                             %if initial magma ocean depth is greater
+    Tr0(2) = Rc                             %than mantle, set equal to mantle depth
+end
+Mmo0 = (4/3 * pi * rho * (Rp^3 - Tr0(2)^3));%initial mass of magma ocean
+Tr0(3) = (MH2O - FH2O * Mmo0);              %intial abundance H2O in solid phase
+Tr0(4) = FH2O * Mmo0;                       %total initial water abundance in m.o. + atm.
+Tr0(5) = FeOt * Fe3_Fet * Mmo0 * (muO /...  %initial mass of O in FeO1.5 in m.o. + atm
+    2 / muFeO1_5);  
+Tr0(6) = FeOt * Fe3_Fet * (Mmantle -...     % mass of O locked up in solid FeO1.5
+    Mmo0)* (muO / 2 / muFeO1_5);  
+Tr0(7) = Tr0(1)-1;                          %initial surface temperature is equal 
+                                            %to the intial potential temperature
