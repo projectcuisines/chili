@@ -1,0 +1,59 @@
+import sys
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+import numpy as np
+import subprocess
+import shutil
+import pickle
+import glob
+import argparse
+
+sys.path.insert(1, '/data3/leoni/LavAtmos')
+from lavatmos_goot_runner import container_lavatmos
+
+
+
+if __name__ == "__main__":
+
+    # run at 10**5 years from PROTEUS output
+
+
+    Tsurf=1870 #bar
+    Psurf=315 #bar
+    
+
+
+    #lavatmos input surface pressure excludes oxygen
+    p_input =  Psurf
+
+    print('Lavatmos input pressure:',p_input)
+
+    abundances= {'C' : 1.0e-20,
+                        'H' : 1.0,
+                        'N' : 1.0e-20,
+                        'S' : 1.0e-20,
+                        'P' : 1.0e-20}
+
+
+
+    parameters = {
+
+    # General parameters
+    'run_name' : 'run_315bar_H',
+
+    # Melt parameters
+    'lava_comp' : 'BSE_palm',
+    'silicate_abundances' : 'lavatmos2', # 'lavatmos1', 'lavatmos2', 'manual'
+
+    # Volatile parameters
+    'P_volatile' : p_input, # bar
+    'oxygen_abundance' : 'degassed', # 'degassed', 'manual'
+    'volatile_comp' :  abundances, # I used renormalised solar composition here
+    }
+
+   
+
+    lavatmos_instance = container_lavatmos(parameters)
+    lavatmos_instance.run_lavatmos(1870)
