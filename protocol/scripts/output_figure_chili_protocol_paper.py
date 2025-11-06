@@ -119,7 +119,7 @@ def evolutionary_output_figure_Ts_phi_pH2O_vs_time(models_evolutionary,models_st
 			model_name_label=='LavAtmos'
 		else:
 			model_name_label=model_name.upper()
-		filename='outputs_main/%s/evolution-%s-%s-data.csv'%(model_name,model_name,planet)
+		filename='../outputs/%s/evolution-%s-%s-data.csv'%(model_name,model_name,planet)
 		try: ### ensure naming of file follows the protocol guidelines and extract values
 			df=pd.read_csv(filename)
 			times=df['t(yr)'].values
@@ -168,7 +168,7 @@ def evolutionary_output_figure_Ts_phi_pH2O_vs_time(models_evolutionary,models_st
 				model_name_label='LavAtmos'
 			else:
 				model_name_label=model_name.upper()
-			filename='outputs_main/%s/static-%s-%s-tau%i-surface.csv'%(model_name,model_name,planet,time_tau)
+			filename='../outputs/%s/static-%s-%s-tau%i-surface.csv'%(model_name,model_name,planet,time_tau)
 			try: ### ensure naming of file follows the protocol guidelines and extract values
 				df=pd.read_csv(filename)
 				phi=df['phi(vol_frac)'].values
@@ -276,7 +276,7 @@ def static_models_output_figure_vertical_profiles(models_static=None,is_hot=True
 			model_name_label='LavAtmos'
 		else:
 			model_name_label=model_name.upper()
-		filename='outputs_main/%s/static-%s-%s-tau%i-%s-data.csv'%(model_name,model_name,planet,time_tau,hotcold)
+		filename='../outputs/%s/static-%s-%s-tau%i-%s-data.csv'%(model_name,model_name,planet,time_tau,hotcold)
 		try: ### ensure naming of file follows the protocol guidelines and extract values
 			df=pd.read_csv(filename)
 			z=df['z(m)'].values
@@ -284,7 +284,7 @@ def static_models_output_figure_vertical_profiles(models_static=None,is_hot=True
 			p=df['p_tot(bar)'].values
 			# h2o=df['p_H2O(bar)'].values
 		except FileNotFoundError as e:
-			filename='outputs_main/%s/evolution-%s-%s-tau%i-%s-data.csv'%(model_name,model_name,planet,time_tau,model_name)
+			filename='../outputs/%s/evolution-%s-%s-tau%i-%s-data.csv'%(model_name,model_name,planet,time_tau,model_name)
 			df=pd.read_csv(filename)
 			z=df['z(m)'].values
 			T=df['T(K)'].values
