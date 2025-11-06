@@ -1,2 +1,2 @@
-T_surf(K),phi(vol_frac),p_surf(bar),p_H2O(bar)
+T_surf(K),phi(vol_frac),p_tot(bar),p_H2O(bar)
 2190.534448,0.292756146,295.001361,2.466500714
