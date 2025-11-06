@@ -1,4 +1,2 @@
 Contact person: Bo Peng
 Email: bpengeps@stanford.edu
-Code version used: 
-Code archived at: 
