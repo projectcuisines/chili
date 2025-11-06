@@ -1,0 +1,9 @@
+Contact person(s): Leoni Janssen & Yamila Miguel
+Email: ljanssen@strw.leidenuniv.nl / ymiguel@strw.leidenuniv.nl
+Code version used: https://github.com/cvbuchem/LavAtmos 30.10.2025
+Code archived at: https://github.com/cvbuchem/LavAtmos 
+
+Output files content:
+
+static-lavatmos-trappist1b-tau5-hot-data.csv: 
+- output for pure H envelope at 1870 K, where the surface pressure is scaled towards the H-abundance in the PROTEUS output. 
