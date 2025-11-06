@@ -1,0 +1,15 @@
+### PACMAN notes for CHILI protocol 22.10.2025
+
+The version of PACMAN used to produce the data
+used for the CHILI protocol paper is stored in
+the /protocol/inputs folder of this repository.
+
+The README.txt file contains details on how to 
+download, install, and run this version of 
+PACMAN-P, which slightly differs from PACMAN-P 
+Version 1.0 (Krissansen-Totton et al. 2024).
+
+TRAPPIST-1b data file was updated 22.10.2025 
+such that the initial free oxygen inventory 
+is the same for the Earth and TRAPPIST-1b 
+protocol test runs.
