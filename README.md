@@ -17,7 +17,9 @@
 > [!IMPORTANT]
 > CHILI team email: chili@rockyworlds.org
 > 
-> CHILI admin email: chili_admin@rockyworlds.org
+> CHILI admin email: chili_admin@rockyworlds.org>
+> 
+> **The deadline for data submission for _evolutionary_ models ([see protocol](https://arxiv.org/abs/2511.16142)) is 31st January 2026! Get in touch if you want to join the intercomparison with your code.**
 
 This is the scripts and data repository for the Coupled atmospHere Interior modeL Intercomparison (<a href="https://nexss.info/cuisines/chili-mip/">CHILI</a>) project. CHILI is an (exo-)planet magma ocean interior-atmosphere model intercomparison project within the <a href="https://nexss.info/cuisines/">CUISINES</a> framework, which aims to provide the exoplanet community with a large and diverse set of comparison and validation of models.
 
