@@ -129,9 +129,9 @@ See further down for an explanation of file naming conventions. All models shoul
 
 ### Evolution models
 Output data from time-evolved models is saved as CSV files with *commas as column separators*. 
-Thus, there should be 12 `*-data.csv` CSV files for each evolutionary model:
-* Exoplanet cases, `outputs/<model_name>/evolution-<model_name>-<planet>-data.csv`
-* Solar system grids, `outputs/<model_name>/evolution-<modelname>-<planet>-grid-H[low,mid,high]-C[low,mid,high]-data.csv`)
+Thus, there should be 21 `*-data.csv` CSV files for each evolutionary model:
+* Three exoplanet cases, `outputs/<model_name>/evolution-<model_name>-<planet>-data.csv`
+* Two solar system grids, `outputs/<model_name>/evolution-<modelname>-<planet>-grid-H[low,mid,high]-C[low,mid,high]-data.csv`
 
 The column headers should be:
 
