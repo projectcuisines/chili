@@ -1,6 +1,6 @@
 # CHILI main intercomparison – input and output files
 
-This directory will contain the main CHILI intercomparison project files. Each participating model deposits their data in a sub-folder in the repository. The data output CSV file(s) should be accompanied by a TXT file that lists (in itemized form) all major noteworthy characteristics of a code that deviate from published code descriptions. For example, changes to the code that were made to adhere to the CHILI protocol, as-of-yet unpublished updates to a code, or conversions of output data to comply with the required units, etc. 
+This directory contains model input and output files used in the main CHILI intercomparison. Each participating model deposits their data within unique subdirectories. The data output CSV file(s) should be accompanied by a TXT file that lists (in itemized form) all major noteworthy characteristics of a code that deviate from published code descriptions. For example, changes to the code that were made to adhere to the CHILI protocol, as-of-yet unpublished updates to a code, or conversions of output data to comply with the required units, etc. 
 
 In addition, all code folders need to contain the exact config files that were used to generate the code output and in the notes TXT file need to list how the code can be obtained. Optimally, this links to a permanent code Zenodo archive, or states a published code version on an open-source GitHub (or similar) repository. At minimum, a contact e-mail needs to be stated for how the respective code version can be obtained from one of the participating authors.
 
@@ -15,8 +15,14 @@ All code names are written in lowercase letters in this repository, irrespective
 
 ## Directory structure
 
+Within the intercomparison folder, there is a single `inputs` directory and a single `outputs` directory. Each model then has its own directory within these two. 
+
+Each model's subdirectory within `input` stores config files for running that model (`.in` extension). Each model's `output` subdirectory should contain a notes file (`.txt`), and all of the required output data (`.csv`). Where appropriate, a limited amount of auxiliary output files may be kept within an `aux` subdirectory. 
+
 Each model has its own directory in ``inputs`` and ``outputs`` to store config files, notes, and outputs.
-Each model should adhere to the following structure, with examples for one evolution model (``model1``) and one static model (``model2``):
+Each model should adhere to the following structure, with examples for one evolution model (``model1``) and one static model (``model2``).
+
+A non-exhaustive example directory structure is outlined below:
 ```
 inputs/
 ├── model1/
@@ -82,6 +88,7 @@ outputs/
 │   └── evolution-model1-trappist1b-data.csv
 │   └── evolution-model1-trappist1e-data.csv
 │   └── evolution-model1-notes.txt
+│   └── aux/
 ├── model2/
 │   └── static-model2-earth-tau3-cold-data.csv
 │   └── static-model2-earth-tau3-hot-data.csv
@@ -114,13 +121,19 @@ outputs/
 │   └── static-model2-trappist1e-tau7-cold-data.csv
 │   └── static-model2-trappist1e-tau7-hot-data.csv
 │   └── static-model2-notes.txt
+│   └── aux/
 │ ...
 ```
 
-See further down for an explanation of naming conventions. All models should deposit all information necessary to recreate the protocol output data in the future in their respective ``inputs/model/`` folder. Additional subfolders can be create in both input and output folders if necessary, but together both folders need to stay witin the 10 MB upper file limit size. This limits in particular the upload of model-specific plots.
+See further down for an explanation of file naming conventions. All models should deposit all information necessary to recreate the protocol output data in the future in their respective ``inputs/<model_name>/`` folder. Additional subfolders can be create in both input and output folders if necessary (e.g. `aux/`) but, together, each model's input and output folders must respect a 10 MB size limit. In particular, this restricts the uploading of model-specific plots.
 
 ### Evolution models
-Output data from time-evolved models is saved as CSV files (```outputs/<model_name>/evolution-<model_name>-<planet>-data.csv``` and ```outputs/<model_name>/evolution-<modelname>-earth-grid-H[low,mid,high]-C[low,mid,high]-data.csv```) with *commas as column separators*. The column headers should be:
+Output data from time-evolved models is saved as CSV files with *commas as column separators*. 
+Thus, there should be 21 `*-data.csv` CSV files for each evolutionary model:
+* Three exoplanet cases, `outputs/<model_name>/evolution-<model_name>-<planet>-data.csv`
+* Two solar system grids, `outputs/<model_name>/evolution-<modelname>-<planet>-grid-H[low,mid,high]-C[low,mid,high]-data.csv`
+
+The column headers should be:
 
 - ```t(yr)```             Time in years
 - ```T_surf(K)```         Surface temperature
@@ -150,9 +163,16 @@ Output data from time-evolved models is saved as CSV files (```outputs/<model_na
 - ```R_trans(m)```        Transit radius of the planet in Earth radii
 - ```R_solid(m)```        Radius of the rheological transition in the mantle
 
-Code notes should be submitted as ```evolution-<model_name>-notes.txt``` in ```outputs/<model_name>/```. 
+Code notes should be submitted as `evolution-<model_name>-notes.txt` in `outputs/<model_name>/`. 
 
-Code config files should (if possible) adhere to the naming convention ```evolution-<model_name>-<planet>-config```, with the file type model-specific (e.g., ```.toml```), in ```inputs/<model_name>/```.
+Code config files should (if possible) adhere to the naming convention `evolution-<model_name>-<planet>-config`, with the file type model-specific (e.g., `.in`), in `inputs/<model_name>/`.
+
+Some evolution models optionally produce atmosphere profiles during the course of simulated evolution. For these models, the calculated atmosphere profiles should be saved with names that incorporate a `-tau[X]` marker before the `-data.csv` suffix, to match the static model naming scheme. For example:
+* Exoplanet cases, `outputs/<model_name>/evolution-<model_name>-<planet>-tau[X]-data.csv`
+* Solar system grids, `outputs/<model_name>/evolution-<model_name>-<planet>-grid-H[low,mid,high]-C[low,mid,high]-tau[X]-data.csv`
+
+The files at each time marker `X` should be sampled as close to the simulated samples. For example, `tau3` should represent a profile calculated at approximately 1000 years of model evolution.
+
 
 ### Static models
 
