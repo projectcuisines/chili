@@ -1,0 +1,24 @@
+# Input file for magma ocean code 
+
+Mp: 			1.0d0	 	! Mass of planet in Earth mass
+Rp:			1.0d0		! Radius of planet in Earth radii
+PH2_prim:		1.0d6		! Initial primordial H2 envelope in units of pressure [Pa] (1e6 Pa = 10 bars)
+Tesc:			400.0d0		! Temperature of escaping flow in [K]
+Tday:			365.26d0 		! Orbital period in days
+Albedo:			0.1d0		! Planetary albedo 
+eff:			0.3d0		! Heating efficiency parameter 
+f0:			1.0d-3		! XUV saturation fraction
+tsat:			1.0d8		! XUV saturation time; [yr] depends on stellar mass
+beta:			-1.23d0		! Stellar decay constant
+MStar:			1.0d0		! Stellar mass in solar units (TRAPPIST-1: 0.09d0)
+LStar:			1.0d0		! Stellar luminosity in solar units (TRAPPIST-1: 5.53d-4)
+core_fraction:		0.32d0		! Core fraction of planet
+Rc:			0.55d0		! Core radius of planet 
+MH2O:			14.0d21		! Mass of water in the interior in terms of kg
+MCO2:			2.0d21 		! Mass of CO2 in the interior in terms of kg, 1.0d21
+FeOt:			0.08d0		! Mass fraction of FeO* in mantle
+Fe3_Fet:		0.05d0		! Fraction of FeO* that is in Fe2O3
+Tipot:			3550.0d0	! Initial potential temperature
+rtol:			1.0e-10		! Relative tolerance for solvers in stage 1
+atol:			1.0e-10		! Absolute tolerance for solvers in stage 1
+star:			1		! Selects stellar evolutionary track from Baraffe grid. 1 is Solar System, 2 is TRAPPIST-1 
