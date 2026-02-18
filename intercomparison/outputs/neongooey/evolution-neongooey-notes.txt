@@ -1,0 +1,4 @@
+- This model is an updated version of GOOEY that accounts for CO2 and H2, as well as a modified atmospheric escape framework and a new corrected gray atmosphere model for the OLR. Hence the name, NEONGOOEY. 
+- The version used in this intercomparison can be requested via email from Carlos Ortiz (ca011251@ucf.edu) or Ramses Ramirez (Ramses.Ramirez@ucf.edu), as we have not yet uploaded it online. 
+- The code is written in modern Fortran and can be run in both ifort and gfortran. To run each specific case with the requested version, the config files will replace the input.txt file in the main folder. The main code is the_mantle_strikes_back.f90, while overlord.f90 contains all the extra subroutines to compute the important quantities. 
+- The required data files, such as the stellar evolution models, are provided with the main code at request. 
