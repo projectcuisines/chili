@@ -138,7 +138,7 @@ The column headers should be:
 - ```t(yr)```             Time in years
 - ```T_surf(K)```         Surface temperature
 - ```T_pot(K)```          Potential temperature
-- ```flux_surf(W/m2)```   Net geothermal heat flux from top of mantle
+- ```flux_surf(W/m2)```   Net geothermal heat flux from interior to atmosphere
 - ```flux_OLR(W/m2)```    Top of atmosphere outgoing longwave radiation
 - ```flux_ASR(W/m2)```    Top of atmosphere average absorbed stellar radiation
 - ```phi(vol_frac)```     Mantle total volume fraction of melt
@@ -160,8 +160,9 @@ The column headers should be:
 - ```p_CH4(bar)```        Partial atmospheric pressure of CH4
 - ```p_O2(bar)```         Partial atmospheric pressure of O2
 - ```mmw(kg/mol)```       Mean molecular weight of the atmosphere
-- ```R_trans(m)```        Transit radius of the planet in Earth radii
+- ```R_trans(m)```        Transit radius of the planet
 - ```R_solid(m)```        Radius of the rheological transition in the mantle
+- ```viscosity(Pa.s)```   Characteristic viscosity of the mantle
 
 Code notes should be submitted as `evolution-<model_name>-notes.txt` in `outputs/<model_name>/`. 
 
