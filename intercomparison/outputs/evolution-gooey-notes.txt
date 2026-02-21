@@ -1,0 +1,4 @@
+-GOOEY can be found at: https://purl.stanford.edu/rk050tc3031
+-The version used in this intercomparison is available in the input folder, or can be requested by email from: Laura Schaefer (lkschaef@stanford.edu)
+-To produce the protocol results, the config file would replace magma_ocean_evolution.m
+-The necessary input data files (OLRdata.mat, solardata.mat,stellar_dataTrappist1.mat) are available in this directory. 
