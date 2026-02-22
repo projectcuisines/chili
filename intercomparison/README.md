@@ -164,6 +164,8 @@ The column headers should be:
 - ```R_solid(m)```        Radius of the rheological transition in the mantle
 - ```viscosity(Pa.s)```   Characteristic viscosity of the mantle
 
+If a model does not output a specific parameter, the output file should still include the respective column, but filled with NaN. Reported times can be model-specific, but should be sampled finely enough to resolve potentially-rapid solidification. We recommend logarithmically-spaced output with at least 50 points per decade in time, and output times within 1% of each τ_i age.
+
 Code notes should be submitted as `evolution-<model_name>-notes.txt` in `outputs/<model_name>/`. 
 
 Code config files should (if possible) adhere to the naming convention `evolution-<model_name>-<planet>-config`, with the file type model-specific (e.g., `.in`), in `inputs/<model_name>/`.
@@ -188,6 +190,8 @@ Output data from static models is also saved as CSV files (``static-<modelname>-
 - ```p_H2(bar)```       Partial atmospheric pressure of H2 at height z
 - ```p_CH4(bar)```      Partial atmospheric pressure of CH4 at height z
 - ```p_O2(bar)```       Partial atmospheric pressure of O2 at height z
+
+If a model does not output a specific parameter, the output file should still include the respective column, but filled with NaN. Some static models (e.g., LavaAtmos) only report surface quantities. These models should still follow the output above, but limit their output to one row.
 
 Submitted output files for the static models should be:
 - ```inputs/<model_name>/static-<modelname>-<planet>-tau[3-9]-[hot,cold]-config```: any code config files necessary to recreate the output data, file type code-specific
