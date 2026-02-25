@@ -1,0 +1,15 @@
+output = "chili_earth_grid/"
+symlink = ""
+ref_config = "input/chili/intercomp/earth.toml"
+use_slurm = false
+max_jobs = 9
+max_days = 1
+max_mem = 3
+
+["delivery.elements.H_kg"]
+method = "direct"
+values = [ 1.6e+20, 7.8e+20, 1.6e+21,]
+
+["delivery.elements.C_kg"]
+method = "direct"
+values = [ 1.36e+20, 2.73e+20, 5.44e+20,]

@@ -1,0 +1,27 @@
+Simulation data from PROTEUS calculations for CHILI Intercomparison Project.
+
+Includes:
+- TRAPPIST-1alpha.
+- TRAPPIST-1b.
+- TRAPPIST-1e.
+- Earth (grid of models 3x3=9).
+- Venus (grid of models 3x3=9).
+
+This results in 3+9+9 = 21 cases in total.
+
+Main data, for each of these cases:
+- runtime data are stored as `*-data.csv` files.
+- atmosphere profiles at `tauX` timesteps are stored as `*-tauX-data.csv` files.
+
+Auxiliary data, stored in the `aux/` subdirectory:
+- Five PDF files which plot the uploaded data.
+- Three simulation log files for the TRAPPIST-1 cases.
+- Two grid log files for the Earth+Venus cases.
+- Two grid config files for the Earth+Venus cases.
+
+
+All using PROTEUS (hash 09052bf683262b33) configured with AGNI+SPIDER+ZEPHYRUS+FastChem.
+Simulations run during Dec2025-Jan2026 by Harrison Nicholls. Uploaded in Jan2026.
+
+Full data size: 12 GB. Only the required data are uploaded to CHILI.
+
