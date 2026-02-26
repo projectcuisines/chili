@@ -1,0 +1,36 @@
+Modifications from the Public Code (LINCS)
+
+<Model Identification>
+The LINCS (Linked INterior–atmosphere Co-evolution System) is based on the framework of Hamano et al. (2013, 2015). The following sections summarize the modifications made to the published version for this intercomparison.
+Contact: Keiko Hamano (keiko.i.hamano@gmail.com)
+
+Required input data files are located in: ./data_for_CHILI/ and ./tbl_atm/.
+
+
+<Initial Conditions>
+To ensure a fully molten initial state as per the protocol, the initial surface temperature is set to 3385 K for all cases. For surface temperatures exceeding 3000 K, planetary radiation is determined via extrapolation.
+
+<Stellar Luminosity and EUV Evolution>
+Stellar luminosity evolution is calculated by interpolating the tables from Baraffe et al. (2015) with respect to stellar age. For TRAPPIST-1's EUV evolution, we adopt the model by Fleming et al. (2020, ApJ, 891:155). The planetary system is specified in the namelist as SOLAR or TRAPPIST1.
+
+<Internal Structure Calculation>
+In the original model, the internal structure of the mantle and magma ocean was derived from the core mass, core radius, core–mantle boundary pressure, and total planetary mass.
+
+To align with the current protocol, we have modified the internal structure module to compute the structure and heat capacity based on planetary mass, planetary radius, and core radius. The heat capacity, melt fraction, and the rheological transition radius are precomputed and tabulated as functions of surface temperature (potential temperature). The code interpolates within these tables during time evolution.
+
+The planet type (CHILI_EARTH or CHILI_VENUS) in the namelist determines the corresponding table file (Hmchange_Earth.dat or Hmchange_Venus.dat). Core and mantle masses consistent with these precomputed structures must also be specified in the namelist.
+
+We assume an adiabatic temperature profile within the magma ocean (where melt fraction > 0). In the solidified mantle, the temperature is assumed to remain constant at the solidus once it reaches that value. Consequently, solidified regions do not contribute to the planetary heat capacity in the evolution calculations. The rheological transition radius is defined as the intersection of the adiabat and the solidus.
+
+<Grabity Correction for Planetary Radiation and Atmospheric Column Mass>
+The original code tabulates planetary radiation and atmospheric column mass as functions of surface temperature (Ts) and surface pressure (ps) under Earth's gravity (ge). For Venus (with gravitational acceleration g), we apply the following corrections:
+
+- Define the effective surface pressure as p_eff = ps*(ge/g)
+
+- The column mass is obtained by interpolating the table using p_eff:
+  m_col = mcol_table(Ts, p_eff)
+
+- The planetary radiation is calculated by interpolating the table using p_eff and then scaling as
+  F_pl = Fpl_table(Ts, p_eff)* (g/ge)**(2alpha), where α = 0.052039.
+
+The scaling factor (g/ge)*(2alpha) accounts for the effect of gravity on the runaway greenhouse threshold. This factor is obtained by approximating Eq. (13.16) in the textbook "Atmospheric Evolution on Inhabited and Lifeless Worlds" (Catling & Kasting, 2017). The approximation indicates that the runaway greenhouse threshold for Venus differs by only about 1% from Earth, suggesting a weak dependence on gravity. 
