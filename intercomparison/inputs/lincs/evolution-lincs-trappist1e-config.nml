@@ -13,5 +13,5 @@ det_CHILI_SYSTEM_NAME = "TRAPPIST1"
 det_CHILI_PLANET_TYPE = "CHILI_EARTH"
 /
 &output_filename
-CHILI_file = "./results_CHILI/evoltion-lincs-trappist1e-data.csv"
+CHILI_file = "./results_CHILI/evolution-lincs-trappist1e-data.csv"
 /

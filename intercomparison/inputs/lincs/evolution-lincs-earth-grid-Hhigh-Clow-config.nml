@@ -13,5 +13,5 @@ det_CHILI_SYSTEM_NAME = "SOLAR"
 det_CHILI_PLANET_TYPE = "CHILI_EARTH"
 /
 &output_filename
-CHILI_file = "./results_CHILI/evoltion-lincs-earth-grid-Hhigh-Clow-data.csv"
+CHILI_file = "./results_CHILI/evolution-lincs-earth-grid-Hhigh-Clow-data.csv"
 /
