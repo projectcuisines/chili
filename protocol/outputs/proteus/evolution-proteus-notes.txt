@@ -3,3 +3,7 @@
 - Volumetric mantle melt fracion was calculated from mass-fraction data, which is natively modelled by the code.
 - Additional output atmospheric profile data at tau-i is provided to allow test example comparison with MOAChi.
 - Files `earth-data.csv` and `trappist1b-data.csv` contain the primary data for comparison between evolutionary models. These contain additional columns beyond those required by the protocol, defined for the main intercomparison in Table 3 of the protocol.
+
+Original Earth data was mistakenly uploaded as a duplicate of the TR1b data, on 11 October 2025.
+Correct Earth data re-uploaded to Google Drive on 30 October 2025. Synchronised to GitHub on 26 Feb 2026.
+Figures on protocol paper use the correct data for Earth and TR1b.
