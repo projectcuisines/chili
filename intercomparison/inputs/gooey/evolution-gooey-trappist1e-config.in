@@ -1,0 +1,195 @@
+%magma_ocean_evolution.m
+%This it the control script for the magma ocean evolution model described
+%in Schaefer et al. (2016) ApJ, 829:63
+
+%Magma Ocean Model for T1e
+%including separate evolution equation for radius of solidification
+clear;clc;
+
+%constants
+G = 6.67e-11;                             % Gravitational constnat [m3/kg/s2]
+sigma = 5.67e-8;                          % Boltzmann's constant [W/m2/K4]
+MSun    = 1.989e30;                       % sun mass [kg]
+LSun    = 3.846e26;                       % sun luminosity [W]
+AU      = 149597871*1e3;                  % earth semimajor axis [m]
+MEarth = 5.97e24;                         % Earth mass [kg]
+REarth = 6371e3;                          % Earth radius [m]
+Earth_ocean = 1.39e21;                    % mass of 1 Earth ocean [kg]
+muO = 15.9994e-3;                         % atomic weight of O in [kg/mole]
+muFeO1_5 = 159.689e-3 / 2;                % molecular weight of FeO1.5 [kg/mole]
+muFeO = 71.845e-3;                        % molecular weight of FeO [kg/mole]
+Cp = 1.2e3;                               % silicate heat capacity [J/kg/K]
+alpha = 2e-5;                             % silicate thermal expansion [1/K]
+
+%OLRdata.mat has the T_surf/P_atm grid that Robin Wordsworth calculated
+%The meshgrid allows interpolation of the OLR data
+load('OLRdata.mat')
+[Ts,Ps] = meshgrid(Temp_K,P_Pa);
+
+% load M-star luminosity track data from Baraffe+2015
+% linearly interpolated between 0.1 M_Sun and 0.2 M_Sun to GJ1132 mass
+% data is L_GJ [L_Sun] and t [yr].
+%This would have to be modified for planets around different stars,
+%including the Sun
+load('stellar_dataTrappist1.mat'); t_flux = t; clear t;
+
+%choose which XUV flux model to use by commenting/uncommenting next lines
+%for GJ 1132b paper, XUV model A = high flux, XUV model B = low flux
+%See Fig. 2 in Schaefer et al. 2016
+model = 1; %XUV Flux A, high XUV flux
+% model = 2; %XUV Flux B, low XUV flux
+
+
+
+% Star properties
+MStar   =0.09;                          % mass of sun [MSun]
+LStar   = 5.53e-4;                        % luminosity of sun [LSun]
+Tday    = 6.101;%0.02136;%%1.51;                       % orbital period [days]6.1016
+Omega   = 2*pi/(Tday*86400);              % orbital frequency [rad/s]
+a       = (G*MSun*MStar/Omega^2)^0.33333; % semimajor axis [m]
+Fat1AU  = LStar*1366;                     % flux  at 1 AU [W/m2]
+
+% planet flux
+Fstel       = Fat1AU*(AU/a)^2;             % flux at planet's orbit [W/m2]
+Albedo       = 0.1;                       % planet albedo []
+ASR   = (1-Albedo)*Fstel/4;                % absorbed stellar radiation [W/m2]
+
+%Planet properties
+% Earth
+Mp = 1 * MEarth;                        % planet mass [kg]
+Rp = 1 * REarth;                        % planet radius [m]
+Rc = 0.55 * Rp; %0.571 * Rp;                            % core radius [m]
+core_fraction = 0.32;                     % core mass fraction 
+Mmantle = (1 - core_fraction) * Mp;        % mantle mass [kg]
+Teq = (ASR/sigma)^0.25;                    % equilibrium temperature [K]
+gp = G * Mp / Rp^2;                        % graviational acceleration [m/s2]
+rho = Mmantle/(4/3*pi*(Rp^3-Rc^3));        % mantle density [kg/m3]
+
+%Choose initial mantle water and iron abundances - can change these
+%parameters for different runs. Note if you change FeOt or Fe3_Fet to also
+%change these parameters in the file get_comp.m
+MH2O = 4.2e21;%3 * Earth_ocean;                   % planetary water abundance [kg]
+FH2O = MH2O/Mmantle;                       % mass fraction of water in mantle
+FeOt = 0.08;                               % mass fraction of FeO* in mantle
+Fe3_Fet = 0.17;                            % fraction of FeO* that is in Fe2O3
+
+
+%solidus temperature parameters
+%Tsolidus = Tsol1 * P(Pa) + Tsol2
+Tsol1 = 26.53e-9;                           % [K/Pa]
+Tsol2 = 1825;                               % [K]
+
+%import the mole fraction of the oxides in the mantle, 1 = BSE, 2 = BSMars
+Xi = get_comp(1); 
+
+
+%% initial conditions for differential equations
+%eqn(1): mantle temperature evolution
+%eqn(2): radius of solidification evolution
+%eqn(3): water in solid mantle evolution
+%eqn(4): water in magma ocean + atmosphere evolution
+%eqn(5): oxygen in magma ocean + atmosphere evolution
+%eqn (6): oxygen in solid mantle evolution
+%eqn (7): surface temperature evolution
+
+Tr0(1) = 3600;                              %intial potential temperature 
+Tr0(2) = Rp - (Tr0(1) - Tsol2)*Cp/(Tsol1*...%initial depth to base of magma ocean
+    rho*gp*Cp - alpha*gp*Tr0(1));           
+if Tr0(2) < Rc;                             %if initial magma ocean depth is greater
+    Tr0(2) = Rc                             %than mantle, set equal to mantle depth
+end
+Mmo0 = (4/3 * pi * rho * (Rp^3 - Tr0(2)^3));%initial mass of magma ocean
+Tr0(3) = (MH2O - FH2O * Mmo0);              %intial abundance H2O in solid phase
+Tr0(4) = FH2O * Mmo0;                       %total initial water abundance in m.o. + atm.
+Tr0(5) = FeOt * Fe3_Fet * Mmo0 * (muO /...  %initial mass of O in FeO1.5 in m.o. + atm
+    2 / muFeO1_5);  
+Tr0(6) = FeOt * Fe3_Fet * (Mmantle -...     % mass of O locked up in solid FeO1.5
+    Mmo0)* (muO / 2 / muFeO1_5);  
+Tr0(7) = Tr0(1)-1;                          %initial surface temperature is equal 
+                                            %to the intial potential temperature
+
+%use event location to stop the model once Tm equals the solidus.
+options = odeset('Events',@mo_event,'NonNegative',[1 2 3 4 5 6 7],'RelTol',1e-6);
+[t,Tr,TE,RE,YE] = ode23s(@(t,Tr)moODE1(t,Tr,Rp,Rc,Mmantle,Teq,rho,gp,Ts,Ps,...
+    OLR,ASR,t_flux,L_GJ,Xi,FeOt,Temp_K,P_Pa,model),[50e6 1e9],Tr0,options);
+
+% Use simulation results to calculate interesting things
+%note that this is only calculating interesting things for the magma ocean
+%portion of the simulation, not later stages...
+for i = 1:length(t)
+    Mmo(i) = 4/3 * pi * rho* (Rp^3 - Tr(i,2)^3);
+    
+    Wmo(i) = Tr(i,4);
+    if Wmo(i) < 0
+        Wmo(i) = 0.0;
+    end
+    
+    FH2Os(i) = Tr(i,3)/Mmantle; 
+
+    [~,meltfrac(i)] = get_meltfrac(gp,Tr(i,1),Rp,Rc,Mmantle);
+    [~,meltfracb(i)] = get_meltfracb(gp,Tr(i,1),Rp,Rc,Mmantle);
+    
+    if Wmo(i) > 0
+        [Patm(i),FH2O(i),kH2O(i)] = get_pressure(Tr(i,1),Tr(i,2),Mmo(i),...
+            Mmantle,Rp,gp,Rc,Wmo(i));
+    else
+        Patm(i) = 0.0;
+        FH2O(i) = 0.0;
+        kH2O(i) = 0.0;
+    end
+    
+    if (Patm(i) > 1 && Tr(i,7) > 400) && (Patm(i) < 1000e5 && Tr(i,7) < 4000)
+        newOLR(i) = interp2(Ts,Ps,OLR,Tr(i,7),Patm(i));
+        flux(i) = interp2(Ts,Ps,OLR,Tr(i,7),Patm(i))-ASR;
+    elseif Patm(i) > 1000e5 && Tr(i,7) < 2200 %without this, at low temp and high P, the interpolation starts making flux go up!!!
+        newOLR(i) = min(min(OLR));
+        flux(i) = newOLR(i) - ASR;
+    else
+        % flux(i) = get_flux(Tr(i,7),Teq,Patm(i),Rp,gp);   
+        [logPs,Ts] = ndgrid(log10(P_Pa),Temp_K);
+        F =griddedInterpolant(logPs,Ts,log10(OLR),'cubic');
+        F2 = griddedInterpolant(logPs,Ts,log10(OLR));
+        newOLR(i) = (10^F(log10(Patm(i)),Tr(i,7)) + 10^F2(log10(Patm(i)),Tr(i,7)))/2;
+        if newOLR < min(min(OLR));
+            newOLR(i) = min(min(OLR));
+        end
+        flux(i) = newOLR(i) - ASR;
+    end    
+    
+    Hres(i,1) = FH2O(i) * meltfrac(i)*Mmo(i);
+    Hres(i,2) = 4*pi*Rp^2/gp * Patm(i);
+    Hres(i,3) = Tr(i,3) + kH2O(i) * FH2O(i)*(1-meltfrac(i))*Mmo(i);
+    
+    MO_mo(i) = Tr(i,5);
+if MO_mo(i) > 0.0    
+    [PO2(i),FFeO1_5(i),mark(i),nFeO1_5(i)] = get_massbalance4(Tr(i,1),Patm(i),Mmo(i),...
+        MO_mo(i),Xi,FeOt,gp,Rp);
+    if PO2(i) < 0.0;
+        PO2(i) = MO_mo(i) * gp / (4 * pi * Rp^2);
+        FFeO1_5(i) = 0.0;
+        nFeO1_5(i) = 0.0;
+    end
+else
+    PO2(i) = 0.0;
+    FFeO1_5(i) = 0.0;
+    mark(i) = 0.0;
+    nFeO1_5(i) = 0.0;
+end
+nFeOt(i) = FeOt * Mmo(i)/muFeO;           %moles of total Fe in magma ocean
+
+[fo2(i)] = get_fO2(Tr(i,1),Patm(i),[Xi(1:10) nFeOt(i)-nFeO1_5(i) nFeO1_5(i)]);
+[phi_H(i),phi_O(i)] = get_loss_T1e(t_flux,L_GJ,t(i),PO2(i),Patm(i),model);
+
+%find mantle heat flux
+[q_m(i),Db(i),~,~,nu(i)] = mantleheatflux(Tr(i,1),Tr(i,7),Tr(i,2),Rp,Rc,gp,rho,FH2Os(i),meltfrac(i));
+
+%mantle viscosity (Pa s)
+eta(i) = nu(i)*rho;
+
+%surface pressure
+Psurf(i) = Patm(i) + PO2(i);
+
+%Mean Molecular weight
+MMW(i) = Patm(i)./Psurf(i).*18.015e-3 + PO2(i)./Psurf(i).*32e-3;
+    
+end
