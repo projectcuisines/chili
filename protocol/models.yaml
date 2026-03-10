@@ -47,3 +47,7 @@ models:
     title: TIME-GEM
     colour: "#8ecae6"
     type: evolutionary
+  - name: moai
+    title: MOAI
+    colour: "#7cb342"
+    type: evolutionary
