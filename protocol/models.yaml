@@ -51,11 +51,3 @@ models:
     title: MOAI
     colour: "#7cb342"
     type: evolutionary
-  - name: lincs
-    title: LINCS
-    colour: "#3f51b5"
-    type: evolutionary
-  - name: neongooey
-    title: NEON-GOOEY
-    colour: "#c2185b"
-    type: evolutionary
