@@ -11,6 +11,10 @@ models:
     title: LavAtmos v2.0
     colour: "#e94f37"
     type: static
+  - name: lincs
+    title: LINCS
+    colour: "#3f51b5"
+    type: evolutionary
   - name: magmatm
     title: MagmAtm
     colour: "#6a0572"
@@ -23,13 +27,13 @@ models:
     title: MORE+TEMPURA
     colour: "#118ab2"
     type: evolutionary
+  - name: neongooey
+    title: NEON-GOOEY
+    colour: "#c2185b"
+    type: evolutionary
   - name: pacman
     title: PACMAN
     colour: "#ffcb05"
-    type: evolutionary
-  - name: magmatm
-    title: MagmAtm
-    colour: "#ef476f"
     type: evolutionary
   - name: pcmhipt
     title: PCM-HiPT
@@ -46,4 +50,8 @@ models:
   - name: timegem
     title: TIME-GEM
     colour: "#8ecae6"
+    type: evolutionary
+  - name: moai
+    title: MOAI
+    colour: "#7cb342"
     type: evolutionary

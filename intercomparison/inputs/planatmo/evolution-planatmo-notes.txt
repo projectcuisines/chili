@@ -1,0 +1,57 @@
+PlanAtMO description
+
+A. de Larminat, H. Samuel, and E. Marq
+
+Institut de Physique du Globe de Paris, CNRS, Université Paris Cité, Paris, France
+LATMOS/IPSL, Université Paris-Saclay, Guyancourt, France
+
+Received March 3, 2026
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+PlanAtMO is a 1D spherically symmetric coupled magma ocean-atmosphere evolution model 
+recently designed to study and compare the effect of equilibrium  or non-equilibrium 
+volatile outgassing on planetary evolution.
+
+The thermal evolution of the planet composed of a silicate envelope and a metallic core 
+is similar to that of other coupled models and accounts for the mixing effect of volatiles.
+
+The cases considered here correspond to the commonly assumed equilibrium 
+between the atmosphere and the magma ocean. However, contrary to the aforementioned works, 
+PlanAtMO considers that when a shallow magma ocean and overlying a mushy mantle coexist, 
+the heat loss at the surface of the planet only contributes to the cooling of the
+magma ocean, because the latter convects much faster than the sluggish mushy or solid 
+mantle underneath it. This typically results in considerably faster  magma ocean 
+solidification. Heat transfer in the atmosphere can be accounted for 
+by a purely radiative gray model. The thermal contribution of the core 
+is neglected. Recently, a gray or k-correlated radiative-convective heat transfer model 
+radconv1d by for H2O, N2, and CO2 species has been added in addition to 
+the purely radiative gray model . 
+
+In this study, we will exclusively rely on the gray  radiative-convective atmospheric heat 
+transfer model, with CO2 and H2O, and a small amount of background N2 (1 bar). Radiogenic 
+heat is accounted for, using the same concentrations and decay constants for heat producing 
+elements (26Al, 60Fe, 40K, 232Th, 235U,238U) as in {nikolaou2019factors} (their Table 7). 
+However, as pointed out in {nikolaou2019factors}, the effect of this heat source is 
+negligible for Cases~1-3 due to the relatively short time spanned prior to solidification 
+and the high value of outgoing convective heat flux out of the magma ocean.
+
+PlanAtMO is written in Fortran, and has been successfully benchmarked against three 
+distinct implementations of the same model in  Matlab and Python. The model detailed 
+description can be found in {Walbecq.etal2025}.
+
+
+This study was funded by the IdEx Université Paris Cité, ANR-18-IDEX-0001, by 
+the CNRS/INSU Programme et équipements Prioritaires de Recherche (PEPR-Origins), 
+and by the Région Ile de France via the program  DIM Origines(under grant number 
+IDF-DIM-ORIGINES-2024-1-03). Numerical computations were performed on the S-CAPAD/DANTE 
+platform, IPGP, France. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Emmanuel Marcq, A.~Salvador, H.~Massol, and A.~Davaille.
+Thermal radiation of magma ocean planets using a 1-d radiative-convective model of {H2O-CO2} atmospheres.
+Journal of Geophysical Research: Planets  1539--1553, 2017.
+
+Arthur Walbecq, Henri Samuel, and Angela Limare.
+The effect of out-of-equilibrium outgassing on the cooling of planetary magma oceans,.
+Icarus, 65, 2025.

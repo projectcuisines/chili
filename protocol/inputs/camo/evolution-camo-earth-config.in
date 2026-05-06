@@ -1,52 +1,50 @@
 # ============================================================================
-# Configuration CAMO - Earth with stellar evolution
+# Configuration CAMO - Earth case
 # ============================================================================
 
 # ----------------------------------------------------------------------------
 # SIMULATION
 # ----------------------------------------------------------------------------
 [simulation]
-name = "earth_planet"
+name = "earth"                              #
 
 # ----------------------------------------------------------------------------
 # EVOLUTION
 # ----------------------------------------------------------------------------
 [evolution]
+# Températures et temps
 temperature_pot_init = 3500.0
-time_init = 3.154e7     # 1 yr
-time_end = 3.154e16     # 1 Gyr
+time_init = 3.154e7
+time_end = 3.154e20
 temperature_step_init = 20.0
 
+# Tolérances
 rtol_flux = 1.0e-3
 atol_flux = 1.0
-rtol_brentq = 1.0e-2
+rtol_brentq = 5.0e-2
 atol_brentq = 1.0e-10
 
+# Flags physiques
 is_radioactive = true
 is_atm = true
 is_full_convection = false
-is_CO2 = true
 is_H2O_loss = true
 is_new_calculation = true
 restart = false
+restart_index = -1
 verbose = true
-
-# ----------------------------------------------------------------------------
-# PLANET
-# ----------------------------------------------------------------------------
-[planet]
-planet_mass = 5.972e24
-surface_radius = 6.378e6
-core_depth = 2.885e6
-surface_pressure = 1.0e5
-surface_albedo = 0.1
-year = 3.154e7
-surface_grav = 9.81
 
 # ----------------------------------------------------------------------------
 # MANTLE
 # ----------------------------------------------------------------------------
 [mantle]
+viscosity_type = "salvador"
+surface_radius_earth = 1.0                  #
+core_radius_fraction = 0.55                 #
+surface_pressure = 1.0e5    
+surface_albedo = 0.1                        #
+year_e = 1.0                                #
+surface_grav = 9.81
 molten_density = 4000.0
 solid_density = 4200.0
 partial_density = 4100.0
@@ -56,42 +54,12 @@ crust_Cp = 1000.0
 thermal_diffusivity = 1.0e-6
 melting_enthalpy = 4.0e5
 thermal_expansion_cst = 3.0e-5
-critical_fraction = 0.4
+critical_fraction = 0.3895
+critical_fraction_temp = 0.0
 K0 = 200.0e9
 K = 4
 m = 0
 C0 = 0.089
-melting_curve_type = "salvador"
-core_radius_fraction = 0.55
-core_mass_fraction = 0.33
-
-# ----------------------------------------------------------------------------
-# VISCOSITY
-# ----------------------------------------------------------------------------
-[viscosity]
-type = "salvador"
-
-# ----------------------------------------------------------------------------
-# OUTGASSING
-# ----------------------------------------------------------------------------
-[outgassing]
-# Paramètres de dégazage
-x_H2O_0 = 1.5e-3        # 4.2e21 kg
-x_CO2_0 = 2.5e-4        # 1e21 kg
-mu_H2O = 18.0e-3
-mu_CO2 = 44.0e-3
-mu_N2 = 28.0e-3
-p_N2 = 5.0e5
-k_H2O_prevov = 1.0e-4
-k_H2O_lherz = 1.1e-2
-k_CO2_prevov = 5.0e-4
-k_CO2_lherz = 2.1e-3
-
-# ----------------------------------------------------------------------------
-# RADIOGENIC_HEAT
-# ----------------------------------------------------------------------------
-[radiogenic_heat]
-earth_age = 4.55e9
 T_U238 = 4.46e9
 H_U238 = 9.17e-5
 ab_U238 = 0.9928
@@ -113,56 +81,90 @@ ab_Al = 0.005e-2
 c_Al = 8650.0e-6
 
 # ----------------------------------------------------------------------------
+# MELTING CURVE
+# ----------------------------------------------------------------------------
+[melting_curve]
+melting_curve_type = "andrault"
+
+# ----------------------------------------------------------------------------
+# OUTGASSING
+# ----------------------------------------------------------------------------
+[outgassing]
+# Paramètres de dégazage
+m_H2O_0 = 4.2e21                            #                          
+m_CO2_0 = 1e21                              # 
+mu_H2O = 18.0e-3
+mu_CO2 = 44.0e-3
+mu_N2 = 28.0e-3
+p_N2 = 1.0e5
+k_H2O_prevov = 1.0e-4
+k_H2O_lherz = 1.1e-2
+k_CO2_prevov = 5.0e-4
+k_CO2_lherz = 2.1e-3
+
+# ----------------------------------------------------------------------------
 # STAR - Sun avec évolution stellaire
 # ----------------------------------------------------------------------------
 [star]
-stellar_radius = 6.96e8
-stellar_distance = 1.496e11     # 1 UA
-stellar_temperature = 5778.0
-sun_age = 4.55e9
+#stellar_radius = 6.96e8
+#stellar_distance = 1.496e11                
+#stellar_temperature = 5778.0
 
-name = "sun"
-use_evolution = true
-early_static = true
-early_static_factor = 0.676     # Early Earth
-stellar_distance_factor = 1.0
+name = "sun"                                #
+use_evolution = true        
+flux_factor = 1.0
+stellar_distance_factor = 1.0               #
+time_offset = 50.0                          #
 
 # ----------------------------------------------------------------------------
 # ATMOSPHERE
 # ----------------------------------------------------------------------------
 [atmosphere]
-star_spectrum = "sun"
+star_spectrum = "sun"                       #
 
 # Paramètres de calcul atmosphérique
-Nlay = 50
-N_timestep_min = 100
-N_timestep_max = 20000
-atm_radiative = false
+Nlay = 70
+is_CO2 = true
+Tstrat = 800.0
+ptop = 1.0
+cp_CO2 = 1234.0
+cp_N2 = 1167.0
 atm_convection = true
 atm_condensation = false
-
 rayleigh = true
+molecular_diffusion = false
 compute_mass_fluxes = true
-Kzz = 1.0e-2
-Kzz_pressure_factor = -1.0
-Kzz_min = 0.0
-mix_enthalpy = false
 evap_coeff = 1.0
-dTmax_use_kernel = 10.0
-qcond_surf_layer = 0.1
-q_cloud = 0.0
-humidity_distribution_width = -1.0
-acceleration_mode = 4
+acceleration_mode = 6
 radiative_acceleration_factor = 1.0
 convective_acceleration_factor = 1.0
 condensation_timestep_reducer = 0.01
 convective_acceleration_mode = 2
+qcond_surf_layer = 0.1
+q_cloud = 0.0
+humidity_distribution_width = -1.0
 lock_acc_conv_zones = false
-convergence_max_iterations = 30
-convergence_Tsurf_tolerance = 1.0
-convergence_Fnet_mean_threshold = 1.0
-convergence_fine_tuning_start = 10
-convergence_ultra_fine_start = 20
+N_timestep_min = 100
+N_timestep_low = 1000
+N_timestep_high = 5000
+N_timestep_max = 10000
+timestep_factor_min = 1.0
+timestep_factor_low = 0.5
+timestep_factor_high = 0.1
+timestep_factor_max = 0.01
+N_kernel_min = 5000
+N_kernel_low = 5000
+N_kernel_high = 5000
+N_kernel_max = 5000
+case_min = 10
+case_low = 15
+case_high = 20
+case_max = 25
+condensed_ocean_threshold = 0.9
+dT_max = 100.0
+dTmax_use_kernel = 10.0
+R = 1.0
+flag_debug = false
 
 # ----------------------------------------------------------------------------
 # OUTPUT

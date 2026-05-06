@@ -77,7 +77,7 @@ def evolutionary_output_figure_Ts_phi_pH2O_vs_time(models_evolutionary,models_st
 	ax_temp.set_ylabel(r'Surface Temperature (K)')
 	ax_temp.set_xlabel(r'Time (yr)')
 	ax_temp.set_xscale('log')
-	ax_phi.set_ylabel(r'Melt Fraction')
+	ax_phi.set_ylabel(r'Melt Fraction (by volume)')
 	ax_phi.set_xlabel(r'Time (yr)')
 	ax_h2o.set_ylabel(r'pH$_2$O (bar)')
 	ax_h2o.set_xlabel(r'Time (yr)')
@@ -194,7 +194,7 @@ def evolutionary_output_figure_Ts_phi_pH2O_vs_time(models_evolutionary,models_st
 			ax_temp.scatter(10**time_tau,T,color=colors[len(models_evolutionary)+ifile],marker='o',s=20,zorder=4)
 			ax_phi.scatter(10**time_tau,phi,color=colors[len(models_evolutionary)+ifile],marker='o',s=20,zorder=4)
 			ax_h2o.scatter(10**time_tau,h2o,color=colors[len(models_evolutionary)+ifile],marker='o',s=20,zorder=4)
-			ax_temp.text(0.4,last_printed_name_position-(ifile)*0.085,'%s'%(model_name_label),color=colors[len(models_evolutionary)+ifile],va='bottom',ha='left',transform=ax_temp.transAxes,fontsize=12)
+			ax_temp.text(0.02,0.05+(len(models_static)-1-ifile)*0.085,'%s'%(model_name_label),color=colors[len(models_evolutionary)+ifile],va='bottom',ha='left',transform=ax_temp.transAxes,fontsize=12)
 	elif plot_static and models_static==None:
 		raise ValueError(
 						"No static model has been included in models_static.\n"

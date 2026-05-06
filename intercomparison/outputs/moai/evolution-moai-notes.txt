@@ -1,0 +1,3 @@
+MOAI notes for CHILI
+
+MOAI is developped as a python library for magma ocean solidificatoin and outgassing, including atmosphere thermodynamical model, that can be used to build a running case adding user-defined parametrizations. As such, the adaptations to run the CHILI simulations are external to the bulk code and consist in additional parametrizations, available in the provided python notebooks. The cases setups are available from the respective python notebooks provided on the CHILI repository. The code itself are availble on the CHILI branch of MOAI's git repository: https://bitbucket.org/MaximeMaurice/moai/src/

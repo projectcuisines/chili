@@ -1,0 +1,17 @@
+&input_params
+mpl     = 5.972d24 !Earth's mass [kg]
+Rpl     = 6.3781d6 !Earth's radius [m]
+mcore   = 1.908759d+24 !Core mass [kg] (pre-calculated)
+mmantle = 4.063257d+24 !Mantle mass[kg](pre-caluulcated)
+Wtot0   = 4.2d21 !Total water mass [kg]
+aorb    = 2.925d-2  !Orbital distance [au]
+tg0     = 0.050d0 !Initial stellar age [Gyr]
+tgmax   = 7.6d0   !Maximum stellar age [Gyr]
+/
+&input_cntr_params
+det_CHILI_SYSTEM_NAME = "TRAPPIST1"
+det_CHILI_PLANET_TYPE = "CHILI_EARTH"
+/
+&output_filename
+CHILI_file = "./results_CHILI/evolution-lincs-trappist1e-data.csv"
+/
