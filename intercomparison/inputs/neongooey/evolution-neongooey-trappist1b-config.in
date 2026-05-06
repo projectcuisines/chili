@@ -19,6 +19,6 @@ MCO2:			1.0d21 		! Mass of CO2 in the interior in terms of kg, 1.0d21
 FeOt:			0.08d0		! Mass fraction of FeO* in mantle
 Fe3_Fet:		0.17d0		! Fraction of FeO* that is in Fe2O3
 Tipot:			3600.0d0	! Initial potential temperature
-rtol:			1.0e-9		! Relative tolerance for solvers in stage 1
-atol:			1.0e-8		! Absolute tolerance for solvers in stage 1
+rtol:			1.0e-8		! Relative tolerance for solvers in stage 1
+atol:			1.0e-9		! Absolute tolerance for solvers in stage 1
 star:			2		! Selects stellar evolutionary track from Baraffe grid. 1 is Solar System, 2 is TRAPPIST-1 
