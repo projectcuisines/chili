@@ -144,6 +144,15 @@ def get_label(thing:str):
 def list_planets():
     return ("earth", "venus")
 
+def clear_folder(folder:str):
+    """Delete all files in the specified folder."""
+    if not os.path.isdir(folder):
+        raise FileNotFoundError(f"Folder '{folder}' not found.")
+    for f in os.listdir(folder):
+        path = os.path.join(folder, f)
+        if os.path.isfile(path) and np.any([path.endswith(ext) for ext in [".png", ".pdf", ".jpg", ".svg"]]):
+            os.remove(path)
+
 def list_models():
     """List the available models in the outputs directory."""
 
@@ -210,8 +219,8 @@ def load_model_data(model:str, quiet=False):
             model_data[planet]["nominal-evo"] = pd.read_csv(f)
 
             # correct neongooey carbon if needed
-            if model == "neongooey":
-                model_data[planet]["nominal-evo"] = correct_neongooey_carbon(model_data[planet]["nominal-evo"], "nominal")
+            # if model == "neongooey":
+            #     model_data[planet]["nominal-evo"] = correct_neongooey_carbon(model_data[planet]["nominal-evo"], "nominal")
 
         # for each H/C combination
         for Hk in ["Hhigh", "Hmid", "Hlow"]:
@@ -232,8 +241,8 @@ def load_model_data(model:str, quiet=False):
                         f = None
 
                 # correct neongooey carbon if needed
-                if model == "neongooey" and f is not None:
-                    model_data[planet][f"{k}-evo"] = correct_neongooey_carbon(model_data[planet][f"{k}-evo"], Ck)
+                # if model == "neongooey" and f is not None:
+                #     model_data[planet][f"{k}-evo"] = correct_neongooey_carbon(model_data[planet][f"{k}-evo"], Ck)
 
                 # atmosphere profile data
                 for tau in [1,2,3,4,5,6,7,8,9]:
