@@ -30,14 +30,15 @@ the purely radiative gray model .
 In this study, we will exclusively rely on the gray  radiative-convective atmospheric heat 
 transfer model, with CO2 and H2O, and a small amount of background N2 (1 bar). Radiogenic 
 heat is accounted for, using the same concentrations and decay constants for heat producing 
-elements (26Al, 60Fe, 40K, 232Th, 235U,238U) as in {nikolaou2019factors} (their Table 7). 
-However, as pointed out in {nikolaou2019factors}, the effect of this heat source is 
+elements (26Al, 60Fe, 40K, 232Th, 235U,238U) as in Nikolaou et al. (2019) (their Table 7). 
+However, as pointed out in Nikolaou et al. (2019), the effect of this heat source is 
 negligible for Cases~1-3 due to the relatively short time spanned prior to solidification 
 and the high value of outgoing convective heat flux out of the magma ocean.
+H2O escape can be accounted for following the approach in Hammano et al. (2013).
 
 PlanAtMO is written in Fortran, and has been successfully benchmarked against three 
 distinct implementations of the same model in  Matlab and Python. The model detailed 
-description can be found in {Walbecq.etal2025}.
+description can be found in Walbecq et al. (2025).
 
 
 This study was funded by the IdEx Université Paris Cité, ANR-18-IDEX-0001, by 
@@ -46,7 +47,7 @@ and by the Région Ile de France via the program  DIM Origines(under grant numbe
 IDF-DIM-ORIGINES-2024-1-03). Numerical computations were performed on the S-CAPAD/DANTE 
 platform, IPGP, France. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Emmanuel Marcq, A.~Salvador, H.~Massol, and A.~Davaille.
 Thermal radiation of magma ocean planets using a 1-d radiative-convective model of {H2O-CO2} atmospheres.

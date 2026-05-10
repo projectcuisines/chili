@@ -1,0 +1,175 @@
+%-----------------------------------------------------------------------
+%                                                                 aa.tex
+% AA vers. 9.3, LaTeX class for Astronomy & Astrophysics
+% Demonstration file
+%                                                       (c) EDP Sciences
+%-----------------------------------------------------------------------
+%
+%\documentclass[referee]{aa}    % for a referee version
+%\documentclass[onecolumn]{aa}  % for a paper on 1 column  
+%\documentclass[longauth]{aa}   % for long lists of authors and/or affiliations. 
+                                % This command displays the first eight authors on page 1
+                                % and shift the whole list after the references.
+                                % Ensure to separate each author with the \and command (see below)
+%\documentclass[letter]{aa}     % for the letters
+%\documentclass[bibyear]{aa}    % if the references are not structured
+                                % according to the author-year natbib style
+
+%\documentclass{aa} 
+
+\documentclass[referee]{aa}  
+%\documentclass[preprint,12pt,authoryear]{aa} %elsarticle}
+%\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{txfonts}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[options]{hyperref}
+% To add links in your PDF file, use the package "hyperref"
+% with options according to your LaTeX or PDFLaTeX drivers.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% if you use custom commands in your title,
+% ensure to check your title when submitting!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \title{{\tt PlanAtMO} description}
+
+ %  \subtitle{Subtitle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Please separate each author with the \and command
+%
+% Please do not include ORCIDs next to author names.
+% Only ORCIDs authenticated by individual authors in EDPS
+% editorial system will be taken into account.
+% ORCIDs included here will be removed.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+   \author{A. de Larminat\inst{1}
+        \and H. Samuel\inst{1}\fnmsep\thanks{Corresponding author: samuel@ipgp.fr}}
+
+   \institute{{Institut de Physique du Globe de Paris, CNRS, Université Paris Cité, Paris, France}}
+
+   \date{Received April 13, 2026}
+
+%\abstract{}{}{}{}{}
+
+
+   \maketitle
+
+
+%\onecolumn
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\tt PlanAtMO}
+
+ {\tt PlanAtMO} is a 1D spherically symmetric coupled magma ocean-atmosphere evolution model recently designed to study and compare the effect of equilibrium  or non-equilibrium volatile outgassing on planetary evolution \citep{salvador2023convective,Walbecq.etal2025}.
+
+The thermal evolution of the planet composed of a silicate envelope and a metallic core is similar to that of other coupled models  \citep{lebrun2013thermal,salvador2017relative,nikolaou2019factors}, and  accounts for the mixing effect of volatiles \citep{bower2019linking}. 
+The cases considered here correspond to the commonly assumed equilibrium between the atmosphere and the magma ocean. 
+However, contrary to the aforementioned works, {\tt PlanAtMO} considers that when a shallow magma ocean and overlying a mushy mantle coexist, 
+the heat loss at the surface of the planet only contributes to the cooling of the
+magma ocean, because the latter convects much faster than the sluggish mushy or solid mantle underneath it. 
+This typically results in considerably faster  magma ocean solidification \citep{Walbecq.etal2025}. 
+Heat transfer in the atmosphere can be accounted for by a purely radiative gray model \cite{elkins2008linked}. The thermal contribution of the core is neglected.
+Recently, a gray or k-correlated radiative-convective heat transfer model {\tt radconv1d} by \citet{Marcq.etal2017} for H$_2$O, N$_2$, and CO$_2$ species has been added in addition to the purely radiative gray model \cite{elkins2008linked}.
+In this study, we will exclusively rely on the gray  radiative-convective atmospheric heat transfer model, with CO$_2$ and H$_2$O, and a small amount of background N$_2$ (1 bar).
+Radiogenic heat is accounted for, using the same concentrations and decay constants for heat producing elements ($^{26}$Al, $^{60}$Fe, $^{40}$K, $^{232}$Th, $^{235}$U, $^{238}$U) as in \citet{nikolaou2019factors} (their Table~7). However, as pointed out in \citet{nikolaou2019factors},
+the effect of this heat source is negligible for Cases~1-3 due to the relatively short time spanned prior to solidification and the high value of outgoing convective heat flux out of the magma ocean.
+
+{\tt PlanAtMO} is written in Fortran, and has been successfully benchmarked against three distinct implementations of the same model in  Matlab 
+and Python. 
+The model detailed description can be found in \citet{Walbecq.etal2025}.
+
+\vspace{1cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{acknowledgements}
+      This study was funded by the IdEx Université Paris Cité, ANR-18-IDEX-0001, by the CNRS/INSU Programme et 
+équipements Prioritaires de Recherche (PEPR-Origins), and by the Région Ile de France via the program  DIM Origines(under grant number IDF-DIM-ORIGINES-2024-1-03).
+Numerical computations were performed on the S-CAPAD/DANTE platform, IPGP, France. 
+\end{acknowledgements}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{thebibliography}{8}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bower et~al.(2019)Bower, Kitzmann, Wolf, Sanan, Dorn, and
+  Oza]{bower2019linking}
+Dan~J Bower, Daniel Kitzmann, Aaron~S Wolf, Patrick Sanan, Caroline Dorn, and
+  Apurva~V Oza.
+\newblock Linking the evolution of terrestrial interiors and an early outgassed
+  atmosphere to astrophysical observations.
+\newblock \emph{Astronomy \& Astrophysics}, 631:\penalty0 A103, 2019.
+
+\bibitem[Elkins-Tanton(2008)]{elkins2008linked}
+Linda~T Elkins-Tanton.
+\newblock Linked magma ocean solidification and atmospheric growth for earth
+  and mars.
+\newblock \emph{Earth and Planetary Science Letters}, 271\penalty0
+  (1-4):\penalty0 181--191, 2008.
+
+\bibitem[Lebrun et~al.(2013)Lebrun, Massol, Chassefi{\`e}re, Davaille, Marcq,
+  Sarda, Leblanc, and Brandeis]{lebrun2013thermal}
+Thomas Lebrun, H{\'e}l{\`e}ne Massol, Eric Chassefi{\`e}re, Anne Davaille,
+  Emmanuel Marcq, Philippe Sarda, Fran{\c{c}}ois Leblanc, and Genevi{\`e}ve
+  Brandeis.
+\newblock Thermal evolution of an early magma ocean in interaction with the
+  atmosphere.
+\newblock \emph{Journal of Geophysical Research: Planets}, 118\penalty0
+  (6):\penalty0 1155--1176, 2013.
+
+\bibitem[Marcq et~al.(2017)Marcq, Salvador, Massol, and
+  Davaille]{Marcq.etal2017}
+Emmanuel Marcq, A.~Salvador, H.~Massol, and A.~Davaille.
+\newblock Thermal radiation of magma ocean planets using a 1-d
+  radiative-convective model of {H$_2$O-CO$_2$} atmospheres.
+\newblock \emph{Journal of Geophysical Research: Planets}, 122:\penalty0
+  1539--1553, 2017.
+\newblock doi 10.1002/2016JE005224.
+
+\bibitem[Nikolaou et~al.(2019)Nikolaou, Katyal, Tosi, Godolt, Grenfell, and
+  Rauer]{nikolaou2019factors}
+Athanasia Nikolaou, Nisha Katyal, Nicola Tosi, Mareike Godolt, John~Lee
+  Grenfell, and Heike Rauer.
+\newblock What factors affect the duration and outgassing of the terrestrial
+  magma ocean?
+\newblock \emph{The Astrophysical Journal}, 875\penalty0 (1):\penalty0 11,
+  2019.
+
+\bibitem[Salvador and Samuel(2023)]{salvador2023convective}
+Arnaud Salvador and Henri Samuel.
+\newblock Convective outgassing efficiency in planetary magma oceans: insights
+  from computational fluid dynamics.
+\newblock \emph{Icarus}, 390:\penalty0 115265, 2023.
+
+\bibitem[Salvador et~al.(2017)Salvador, Massol, Davaille, Marcq, Sarda, and
+  Chassefi{\`e}re]{salvador2017relative}
+Arnaud Salvador, H{\'e}l{\`e}ne Massol, Anne Davaille, Emmanuel Marcq, Philippe
+  Sarda, and Eric Chassefi{\`e}re.
+\newblock The relative influence of {H$_2$O} and {CO$_2$} on the primitive
+  surface conditions and evolution of rocky planets.
+\newblock \emph{Journal of Geophysical Research: Planets}, 122\penalty0
+  (7):\penalty0 1458--1486, 2017.
+
+\bibitem[Walbecq et~al.(2025)Walbecq, Samuel, and Limare]{Walbecq.etal2025}
+Arthur Walbecq, Henri Samuel, and Angela Limare.
+\newblock The effect of out-of-equilibrium outgassing on the cooling of
+  planetary magma oceans,.
+\newblock \emph{Icarus}, 65, 2025.
+
+\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}
