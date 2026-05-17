@@ -123,7 +123,7 @@ _labels = {
 "p_H2S(bar)":       r"$p_{\rm H2S}$ [bar]",
 "mmw(kg/mol)":      r"Outgassed MMW [kg/mol]",
 "R_trans(m)":       r"$R_{\rm trans}$ [m]",
-"R_solid(m)":       r"$R_{\rm solid}$ [m]",
+"R_solid(m)":       r"$R_{\rm RF}$ [m]",
 "viscosity(Pa.s)":  r"Viscosity [Pa s]",
 
 "earth": "Earth",
