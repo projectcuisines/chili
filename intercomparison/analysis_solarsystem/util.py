@@ -49,14 +49,16 @@ chili_gases = ["H2O", "CO2", "H2", "CO", "CH4", "O2"]
 for k in gas_list:
     _colors[f"p_{k}(bar)"] = _colors[k]
 
+# https://sronpersonalpages.nl/~pault/
+# Paul Tol's bright scheme
 chili_models = {
-    "gooey":     ("GOOEY","#ea1717"),
-    "neongooey": ("NEONGOOEY","#f44560"),
+    "gooey":     ("GOOEY","#bbbbbb"),
+    "neongooey": ("NEONGOOEY","#ee6677"),
     "proteus":   ("PROTEUS","#EB7D0F"),
-    "pacman":    ("PACMAN","#0e6eff"),
-    "lincs":     ("LINCS","#2ca02c"),
-    "moai":      ("MOAI","#9208B5"),
-    "planatmo":  ("PlanAtMO","#C4BD35"),
+    "pacman":    ("PACMAN","#4477aa"),
+    "lincs":     ("LINCS","#228833"),
+    "moai":      ("MOAI","#aa3377"),
+    "planatmo":  ("PlanAtMO","#ccbb44"),
 }
 
 # chili_models = {
