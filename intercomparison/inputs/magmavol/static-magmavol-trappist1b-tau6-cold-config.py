@@ -505,7 +505,7 @@ if __name__ == '__main__':
 	# trappist1e (already done for tau3 hot; add others as needed)
 	# -------------------------------------------------------------------------
 	# --- trappist1e ---
-	data = run_single_test(planet='trappist1e', tau_key='tau3', hot_or_cold='hot')
+	# data = run_single_test(planet='trappist1e', tau_key='tau3', hot_or_cold='hot')
 	# data = run_single_test(planet='trappist1e', tau_key='tau3', hot_or_cold='cold')
 	# data = run_single_test(planet='trappist1e', tau_key='tau4', hot_or_cold='hot')
 	# data = run_single_test(planet='trappist1e', tau_key='tau4', hot_or_cold='cold')
@@ -518,7 +518,7 @@ if __name__ == '__main__':
 	# data = run_single_test(planet='trappist1b', tau_key='tau4', hot_or_cold='hot')
 	# data = run_single_test(planet='trappist1b', tau_key='tau4', hot_or_cold='cold')
 	# data = run_single_test(planet='trappist1b', tau_key='tau6', hot_or_cold='hot')
-	# data = run_single_test(planet='trappist1b', tau_key='tau6', hot_or_cold='cold')
+	data = run_single_test(planet='trappist1b', tau_key='tau6', hot_or_cold='cold')
 
 	# --- trappist1alpha ---
 	# data = run_single_test(planet='trappist1alpha', tau_key='tau3', hot_or_cold='hot')

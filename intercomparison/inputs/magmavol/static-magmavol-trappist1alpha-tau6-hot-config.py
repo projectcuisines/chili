@@ -128,7 +128,7 @@ TAU_CONFIG = {
 	'trappist1alpha': {
 		'tau3': {'tau_yr': 1e3, 'hot_model': 'gooey',     'cold_model': 'proteus'},
 		'tau4': {'tau_yr': 1e4, 'hot_model': 'gooey',     'cold_model': 'proteus'},
-		'tau6': {'tau_yr': 1e6, 'hot_model': 'neongooey', 'cold_model': 'neongooey'},
+		'tau6': {'tau_yr': 1e6, 'hot_model': 'gooey',     'cold_model': 'gooey'},
 	},
 }
 
@@ -197,7 +197,7 @@ def build_pkl_path(Tsurf):
 	"""Build the expected pkl file path for a given Tsurf."""
 	initial_atmo_dict = {'H': H, 'O': O, 'C': C, 'N': N, 'He': He, 'P': P, 'S': S}
 	target_atmo_dict  = {'H': H, 'C': C, 'N': N, 'He': He, 'P': P, 'S': S}
-
+	
 	file = f'atmo_sol_T={Tsurf}K_target_atm='
 	for k, v in target_atmo_dict.items():
 		file += f'_{k}={v}'
@@ -208,7 +208,7 @@ def build_pkl_path(Tsurf):
 	file += f'_H2O_dissolve={H2O_dissolution}'
 	file += f'_CO2_dissolve={CO2_dissolution}'
 	file += f'_{FO2_CALCULATION}_{FO2_BUFFER}_{FO2_LOG_DEV}'
-
+	
 	return os.path.join(
 		mag.MAIN_DIR,
 		mag.DIR_FOR_RESERVOIR_OF_ATMO_SOLUTIONS,
@@ -227,7 +227,7 @@ def extract_chili_pressures(mol_pressures):
 	"""
 	out = {col: np.nan for col in CHILI_COLUMNS}
 	p_tot = 0.
-
+	
 	for sp, p in mol_pressures.items():
 		chili_key = SPECIES_MAP.get(sp, None)
 		if chili_key is not None:
@@ -235,7 +235,7 @@ def extract_chili_pressures(mol_pressures):
 			if np.isnan(out[chili_key]) or p > out[chili_key]:
 				out[chili_key] = p
 		p_tot += p
-
+	
 	out['p_tot(bar)'] = p_tot
 	return out
 
@@ -249,28 +249,28 @@ def run_single_test(planet='trappist1e', tau_key='tau3', hot_or_cold='hot'):
 	Run MAGMAVOL at the surface temperature of the hot or cold evolutionary
 	model for the given planet and tau, print the molecular_composition_pressures
 	keys, and save a single-row CHILI CSV at z=0.
-
+	
 	planet     : one of 'trappist1e', 'trappist1b', 'trappist1alpha'
 	tau_key    : one of 'tau3', 'tau4', 'tau6'
 	hot_or_cold: 'hot' or 'cold'
 	"""
 	if planet not in VALID_PLANETS:
 		raise ValueError(f"Unknown planet '{planet}'. Choose from: {VALID_PLANETS}")
-
+	
 	cfg        = TAU_CONFIG[planet][tau_key]
 	tau_yr     = cfg['tau_yr']
 	model_name = cfg['hot_model'] if hot_or_cold == 'hot' else cfg['cold_model']
-
+	
 	log.info(f"=== CHILI test run: {planet} {tau_key} ({hot_or_cold}) "
 		f"(tau = {tau_yr:.0e} yr) ===")
 	log.info(f"  Volatile inputs: pH = {pH_bar:.4f} bar, pC = {pC_bar:.4f} bar")
 	log.info(f"  FO2: {FO2_BUFFER}+{FO2_LOG_DEV}")
-
+	
 	# read T_surf for selected model
 	log.info(f"Reading T_surf for {hot_or_cold} model ({model_name}) at tau = {tau_yr:.0e} yr ...")
 	T_surf = get_T_surf_at_tau(model_name, planet, tau_yr)
 	log.info(f"  T_surf ({hot_or_cold}) = {T_surf:.2f} K")
-
+	
 	# run MAGMAVOL at T_surf
 	log.info(f"Running MAGMAVOL at T = {T_surf:.2f} K ...")
 	data = mag.atmo_compo_magma_ocean_with_dissolution_AND_initial_atmosphere_ATMO_Target_atmosphere(
@@ -289,18 +289,18 @@ def run_single_test(planet='trappist1e', tau_key='tau3', hot_or_cold='hot'):
 		FO2_BUFFER         = FO2_BUFFER,
 		FO2_LOG_DEV        = FO2_LOG_DEV,
 	)
-
+	
 	# print molecular_composition_pressures to check keys
 	log.info("molecular_composition_pressures keys and values:")
 	mol_pressures = data['molecular_composition_pressures']
 	for sp, p in sorted(mol_pressures.items(), key=lambda x: -x[1]):
 		log.info(f"  {sp:20s} = {p:.6e} bar")
-
+	
 	# extract CHILI pressures
 	chili_vals         = extract_chili_pressures(mol_pressures)
 	chili_vals['z(m)'] = 0.
 	chili_vals['T(K)'] = T_surf
-
+	
 	# save single-row CHILI CSV — filename follows CHILI README convention
 	out_csv = os.path.join(OUTPUTS_DIR,
 		f'static-magmavol-{planet}-{tau_key}-{hot_or_cold}-data.csv')
@@ -308,14 +308,14 @@ def run_single_test(planet='trappist1e', tau_key='tau3', hot_or_cold='hot'):
 	df_out.to_csv(out_csv, index=False)
 	log.info(f"Saved CHILI static CSV to: {out_csv}")
 	print(df_out.to_string())
-
+	
 	# copy this runner script to inputs folder
 	import shutil
 	runner_dst = os.path.join(INPUTS_DIR,
 		f'static-magmavol-{planet}-{tau_key}-{hot_or_cold}-config.py')
 	shutil.copy(__file__, runner_dst)
 	log.info(f"Copied runner script to inputs: {runner_dst}")
-
+	
 	return data
 
 
@@ -327,7 +327,7 @@ def run_single_test(planet='trappist1e', tau_key='tau3', hot_or_cold='hot'):
 def interpolate_compo_file(compo_file=None):
 	"""
 	Interpolate missing temperature rows in a compo .dat file and overwrite it.
-
+	
 	Two modes:
 	  - Called with compo_file path: load the file, detect temperatures missing
 	    from the expected t_arr grid, interpolate from present rows using a
@@ -340,44 +340,44 @@ def interpolate_compo_file(compo_file=None):
 	header  = ['# T', 'Ptot', 'H', 'He', 'C', 'N', 'O', 'Na', 'K', 'Si',
 		'Ar', 'Ti', 'V', 'S', 'Cl', 'Mg', 'Al', 'Ca', 'Fe', 'Cr',
 		'Li', 'Cs', 'Rb', 'F', 'P']
-
+	
 	if compo_file is None:
 		compo_file = os.path.join(MAGMAVOL_DIR,
 			f'compo_chili_pH={pH_bar:.2f}_pC={pC_bar:.2f}_fug={FO2_LOG_DEV}_new.dat')
-
+	
 	if not os.path.exists(compo_file):
 		log.info(f"interpolate_compo_file: file not found: {compo_file}")
 		return
-
+	
 	# load existing file — skip the header row (comments='')
 	existing = np.loadtxt(compo_file, comments='#')
 	if existing.ndim == 1:
 		existing = existing[np.newaxis, :]
-
+	
 	T_present = existing[:, 0]
 	n_cols    = existing.shape[1]
-
+	
 	# find which temperatures from the expected grid are missing
 	missing_temps = [T for T in t_arr if not np.any(np.isclose(T_present, T))]
 	n_present     = len(T_present)
 	n_expected    = len(t_arr)
-
+	
 	log.info(f"interpolate_compo_file: {n_present}/{n_expected} temperatures present "
 		f"in {os.path.basename(compo_file)}")
-
+	
 	if not missing_temps:
 		log.info("interpolate_compo_file: no missing temperatures — nothing to do.")
 		return
-
+	
 	# threshold: need at least n/2 present to interpolate reliably
 	if n_present < n_expected / 2:
 		log.info(f"interpolate_compo_file: too few rows ({n_present}/{n_expected}) "
 			f"to interpolate reliably. Skipping.")
 		return
-
+	
 	log.info(f"interpolate_compo_file: interpolating {len(missing_temps)} missing "
 		f"temperature(s) using cubic UnivariateSpline over {n_present} present points.")
-
+	
 	# fit a spline per column (Ptot + each species) over present temperatures
 	T_sorted = np.array(sorted(T_present))
 	splines  = {}
@@ -386,7 +386,7 @@ def interpolate_compo_file(compo_file=None):
 		splines[col_idx] = UnivariateSpline(
 			T_sorted, y, k=min(3, n_present - 1), s=0
 		)
-
+	
 	# build interpolated rows for missing temperatures
 	interp_rows = []
 	for T in missing_temps:
@@ -396,11 +396,11 @@ def interpolate_compo_file(compo_file=None):
 			row[col_idx] = float(splines[col_idx](T))
 		interp_rows.append(row)
 		log.info(f"  Interpolated T={T:.0f} K")
-
+	
 	# merge existing and interpolated rows, sort by temperature
 	all_rows = np.vstack([existing, np.array(interp_rows)])
 	all_rows = all_rows[np.argsort(all_rows[:, 0])]
-
+	
 	np.savetxt(compo_file, all_rows, delimiter=' ',
 		header=' '.join(header), comments='')
 	log.info(f"interpolate_compo_file: overwrote {compo_file} "
@@ -419,7 +419,7 @@ def run_full_grid():
 	log.info(f"  T range: {T_MIN} to {T_MAX} K in {T_STEP} K steps "
 		f"({len(t_arr)} points)")
 	log.info(f"  Running high to low temperature")
-
+	
 	for Tsurf in t_arr_run:
 		pkl_path = build_pkl_path(Tsurf)
 		if os.path.exists(pkl_path):
@@ -442,7 +442,7 @@ def run_full_grid():
 			FO2_BUFFER         = FO2_BUFFER,
 			FO2_LOG_DEV        = FO2_LOG_DEV,
 		)
-
+	
 	# --- write compo file ---
 	log.info("Writing compo file ...")
 	header  = ['# T', 'Ptot', 'H', 'He', 'C', 'N', 'O', 'Na', 'K', 'Si',
@@ -451,11 +451,11 @@ def run_full_grid():
 	species = ['H', 'He', 'C', 'N', 'O', 'Na', 'K', 'Si', 'Ar', 'Ti',
 		'V', 'S', 'Cl', 'Mg', 'Al', 'Ca', 'Fe', 'Cr', 'Li', 'Cs',
 		'Rb', 'F', 'P']
-
+	
 	arr_list     = []
 	ptot         = []
 	present_temps = []
-
+	
 	for Tsurf in t_arr:
 		pkl_path = build_pkl_path(Tsurf)
 		if not os.path.exists(pkl_path):
@@ -466,15 +466,15 @@ def run_full_grid():
 			arr_list.append(data['atoms_molar_fractions'])
 			ptot.append(data['Ptot_gas_bar'])
 			present_temps.append(Tsurf)
-
+	
 	if not arr_list:
 		log.info("ERROR: no pkl files found. Run the grid first.")
 		return
-
+	
 	index    = np.array(list(arr_list[0].keys()))
 	sp_temp  = np.zeros(len(species))
 	values   = np.zeros((len(present_temps), len(header)))
-
+	
 	for num, (T, molar, p) in enumerate(zip(present_temps, arr_list, ptot)):
 		val_temp = np.array(list(molar.values()))
 		for sp_num, sp in enumerate(species):
@@ -484,13 +484,13 @@ def run_full_grid():
 		values[num, 2:] = sp_temp
 		values[num, 1]  = p
 		values[num, 0]  = T
-
+	
 	compo_file = os.path.join(MAGMAVOL_DIR,
 		f'compo_chili_pH={pH_bar:.2f}_pC={pC_bar:.2f}_fug={FO2_LOG_DEV}_new.dat')
 	np.savetxt(compo_file, values, delimiter=' ',
 		header=' '.join(header), comments='')
 	log.info(f"Saved compo file to: {compo_file}")
-
+	
 	# interpolate any missing temperatures and overwrite
 	interpolate_compo_file(compo_file)
 
@@ -505,13 +505,13 @@ if __name__ == '__main__':
 	# trappist1e (already done for tau3 hot; add others as needed)
 	# -------------------------------------------------------------------------
 	# --- trappist1e ---
-	data = run_single_test(planet='trappist1e', tau_key='tau3', hot_or_cold='hot')
+	# data = run_single_test(planet='trappist1e', tau_key='tau3', hot_or_cold='hot')
 	# data = run_single_test(planet='trappist1e', tau_key='tau3', hot_or_cold='cold')
 	# data = run_single_test(planet='trappist1e', tau_key='tau4', hot_or_cold='hot')
 	# data = run_single_test(planet='trappist1e', tau_key='tau4', hot_or_cold='cold')
 	# data = run_single_test(planet='trappist1e', tau_key='tau6', hot_or_cold='hot')
 	# data = run_single_test(planet='trappist1e', tau_key='tau6', hot_or_cold='cold')
-
+	
 	# --- trappist1b ---
 	# data = run_single_test(planet='trappist1b', tau_key='tau3', hot_or_cold='hot')
 	# data = run_single_test(planet='trappist1b', tau_key='tau3', hot_or_cold='cold')
@@ -519,13 +519,13 @@ if __name__ == '__main__':
 	# data = run_single_test(planet='trappist1b', tau_key='tau4', hot_or_cold='cold')
 	# data = run_single_test(planet='trappist1b', tau_key='tau6', hot_or_cold='hot')
 	# data = run_single_test(planet='trappist1b', tau_key='tau6', hot_or_cold='cold')
-
+	
 	# --- trappist1alpha ---
 	# data = run_single_test(planet='trappist1alpha', tau_key='tau3', hot_or_cold='hot')
 	# data = run_single_test(planet='trappist1alpha', tau_key='tau3', hot_or_cold='cold')
 	# data = run_single_test(planet='trappist1alpha', tau_key='tau4', hot_or_cold='hot')
 	# data = run_single_test(planet='trappist1alpha', tau_key='tau4', hot_or_cold='cold')
-	# data = run_single_test(planet='trappist1alpha', tau_key='tau6', hot_or_cold='hot')
+	data = run_single_test(planet='trappist1alpha', tau_key='tau6', hot_or_cold='hot')
 	# data = run_single_test(planet='trappist1alpha', tau_key='tau6', hot_or_cold='cold')
 
 	# -------------------------------------------------------------------------
