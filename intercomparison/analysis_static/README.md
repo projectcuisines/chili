@@ -2,11 +2,11 @@
 
 ## Overview
 
-This directory contains the data analysis comparing the **static models** against a grid of outputs from the **evolution models**. Static models are benchmarked to evolution-model snapshots, allowing a like-for-like comparison.
+This directory contains the data analysis comparing the **static models** against a grid of snapshot-outputs from **evolution models** as well as each other.
 
 See the [protocol paper](https://iopscience.iop.org/article/10.3847/PSJ/ae593b) for the full methodology used to select the comparison grid.
 
-## Methodology
+## Selecting the Snapshot Grid
 
 For each planet and epoch (τ) combination, two evolution-model snapshots are selected as thermal end-members:
 

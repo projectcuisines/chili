@@ -198,4 +198,4 @@ Submitted output files for the static models should be:
 - ```outputs/<model_name>/static-<modelname>-<planet>-tau[3-9]-[hot,cold]-data.csv```
 - ```outputs/<model_name>/static-<modelname>-notes.txt```
 
-The choice of the ages (&#120591;<sub>3</sub> - &#120591;<sub>9</sub>) will depend on the outcome of the evolutionary calculations, i.e., come later.
+The choice of the ages can be found in the [Static Model Analysis folder](./analysis_static/README.md).
