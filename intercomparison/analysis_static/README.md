@@ -74,7 +74,36 @@ Each snapshot is identified by its source evolution model, the simulation timest
 
 > There is only one simulation usbale at τ = 6 for TRAPPIST-1 Alpha.
 
-## Usage
+## Summary file 
+All outputs from the evolutionary models for the planets and timescales above are summarized together in the file static_model_outputs_csv_csv. These can be used as static model input.
+The columns of the file are as follows:
+t(yr) Time in years
+T_surf(K) Surface temperature
+T_pot(K) Potential temperature
+flux_surf(W/m2) Net geothermal heat flux from interior to atmosphere
+flux_OLR(W/m2) Top of atmosphere outgoing longwave radiation
+flux_ASR(W/m2) Top of atmosphere average absorbed stellar radiation
+phi(vol_frac) Mantle total volume fraction of melt
+fO2_solid(bar) Oxygen fugacity of solid mantle
+fO2_melt(bar) Oxygen fugacity of melt
+thick_surf_bl(m) Thickness of surface viscous boundary layer
+massC_solid(kg) Mass of carbon in the solid mantle
+massC_melt(kg) Mass of carbon in the melt
+massC_atm(kg) Mass of carbon in the atmosphere
+massH_solid(kg) Mass of hydrogen in the solid mantle
+massH_melt(kg) Mass of hydrogen in the melt
+massH_atm(kg) Mass of hydrogen in the atmosphere
+massO_atm(kg) Mass of oxygen in the atmosphere
+p_surf(bar) Total atmospheric surface pressure
+p_H2O(bar) Partial atmospheric pressure of H2O
+p_CO2(bar) Partial atmospheric pressure of CO2
+p_CO(bar) Partial atmospheric pressure of CO
+p_H2(bar) Partial atmospheric pressure of H2
+p_CH4(bar) Partial atmospheric pressure of CH4
+p_O2(bar) Partial atmospheric pressure of O2
+mmw(kg/mol) Mean molecular weight of the atmosphere
+R_trans(m) Transit radius of the planet
+R_solid(m) Radius of the rheological transition in the mantle
+viscosity(Pa.s) Characteristic viscosity of the mantle
 
-Static modellers should take the outputs of these evolution models at these timesteps as inputs. The static models should then output the atmospheric P-T-composition-z profile, or a subset of this data given each code's capability. Please see the protocol paper for details & contact the organizers via email or discord if issues arise.
 
