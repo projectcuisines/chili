@@ -43,7 +43,7 @@ Each snapshot is identified by its source evolution model, the simulation timest
 
 | τ | Case | Model     | Timestep (yrs)  | Surface Temp (K)  |
 |---|------|-----------|-----------------|-------------------|
-| 3 | Hot  | lincs     | 975.59          | 3260.05           |
+| 3 | Hot  | planatmo  | 999.30          | 3302.12           |
 | 3 | Cold | pacman    | 981.19          | 2827.88           |
 | 4 | Hot  | proteus   | 9913.00         | 3032.76           |
 | 4 | Cold | pacman    | 9990.19         | 2081.67           |
@@ -59,7 +59,7 @@ Each snapshot is identified by its source evolution model, the simulation timest
 | 4 | Hot  | neongooey | 9800.85         | 3363.80           |
 | 4 | Cold | pacman    | 10011.80        | 2245.95           |
 | 6 | Hot  | neongooey | 1016695.54      | 3276.41           |
-| 6 | Cold | gooey     | 1000293.29      | 2090.01           |
+| 6 | Cold | planatmo  | 1008647.00      | 2075.41           |
 
 ### TRAPPIST-1 Alpha
 
