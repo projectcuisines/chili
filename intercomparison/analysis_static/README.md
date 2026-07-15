@@ -21,7 +21,7 @@ Each snapshot is identified by its source evolution model, the simulation timest
 
 | τ | Case | Model     | Timestep (yrs)  | Surface Temp (K)  |
 |---|------|-----------|-----------------|-------------------|
-| 3 | Hot  | planatmo  | 1.00e+03        | 3375.62           |
+| 3 | Hot  | planatmo  | 1.00e+03        | 3299.14           |
 | 3 | Cold | pacman    | 9.81e+02        | 2825.68           |
 | 4 | Hot  | proteus   | 9.89e+03        | 3070.32           |
 | 4 | Cold | pacman    | 9.99e+03        | 2051.00           |
@@ -32,7 +32,7 @@ Each snapshot is identified by its source evolution model, the simulation timest
 
 | τ | Case | Model    | Timestep (yrs)  | Surface Temp (K)  |
 |---|------|----------|-----------------|-------------------|
-| 3 | Hot  | planatmo | 1.00e+03        | 3390.61           |
+| 3 | Hot  | planatmo | 1.00e+03        | 3318.15           |
 | 3 | Cold | pacman   | 1.02e+03        | 2815.58           |
 | 4 | Hot  | proteus  | 9.87e+03        | 3099.73           |
 | 4 | Cold | pacman   | 1.00e+04        | 2082.01           |
