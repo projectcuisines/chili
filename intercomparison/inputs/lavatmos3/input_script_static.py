@@ -1,7 +1,11 @@
+import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+import numpy as np
 import shutil
+import glob
 
 from lavatmos_goot_runner import container_lavatmos
 
@@ -21,9 +25,14 @@ def get_input(df,modelname):
     Tsurf=float(compvals['T_surf(K)'])
     Cmass=float(compvals['massC_atm(kg)']) * 1000 #g
     Hmass=float(compvals['massH_atm(kg)']) * 1000 #g
-    Omass=float(compvals['massO_atm(kg)']) * 1000  #g
 
-    #print(Cmass)
+    #account for moai model which doesn not have oxygen output
+    value = pd.to_numeric(compvals['massO_atm(kg)'], errors='coerce')
+    if pd.notna(value):
+        Omass=float(compvals['massO_atm(kg)']) * 1000  #g
+    else:
+        print('nan')
+        Omass=0.0
 
 
 
@@ -55,7 +64,7 @@ def get_input(df,modelname):
 
 if __name__ == "__main__":
 
-    # the grid contains the input as given in the github input directory
+
     grid='input_staticpaper.csv'
     df=pd.read_csv(grid,sep=',')
     df.columns = df.columns.str.strip()
