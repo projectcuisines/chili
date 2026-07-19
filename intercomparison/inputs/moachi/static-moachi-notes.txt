@@ -1,0 +1,10 @@
+MOAChi inputs for individual runs. For the actual procedure, see the .ipynb file. 
+See https://github.com/projectcuisines/chili/blob/main/intercomparison/analysis_static/static_model_outputs_csv.csv
+for the input parameters. Overall, other than a select few runs that are incompatible with 
+MOAChi chemical network (i.e. CO-CO2 rich atmosphere), MOAChi used the reported bulk 
+elemental C, H and O mass of the atmosphere and enforced thermochemical equilibrium. 
+For those with bulk molar C < 0.8 H, MOAChi used the surface partial presures reported 
+for atmospheric speciation. 
+
+For input data from neongooey and moai, the elemental abundances are calculated from 
+the surface partial pressures by necessity. 
