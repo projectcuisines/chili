@@ -1,0 +1,45 @@
+To run the input files for MAGMAVOL, you need to have both VapoRock and FastChem installed since MAGMAVOL is basically a coupling between those two packages.
+
+_______________________________________________________________________________________________________________________________
+
+1. VapoRock installation
+
+For installing VapoRock, please see instructions at https://gitlab.com/ENKI-portal/vaporock/-/tree/thermoenginelite-port?ref_type=heads for the thermoenginelite-port branch. ThermoEngine necessary to run VapoRock can technically already be installled by doing:
+
+pip install thermoengine
+
+The pip installable version of VapoRock cannot tecnically be used, so one has to clone the branch specific VapoRock repository and then install that version specifically.
+
+_______________________________________________________________________________________________________________________________ 
+
+2. FastChem installation
+
+FastChem can be easily installed by running
+
+pip install pyfastchem
+
+but I recommend cloning the repository at https://github.com/NewStrangeWorlds/FastChem and then installing by doing
+
+python3 setup.py install
+
+For detailed instructions, please see here: https://newstrangeworlds.github.io/FastChem/sections/installation.html
+
+_______________________________________________________________________________________________________________________________
+
+When both have been installed, clone the MAGMAVOL repository at https://github.com/dashspandan/MAGMAVOL. Then switch to the chili specifc branch by doing
+
+git switch chili
+
+Read the installation instructions and instructions to download the reservoir of solutions in the README page provided and test if MAGMAVOL works with all necessary modifications.
+
+Once it is confirmed that MAGMAVOL works, the CHILI repository can be cloned somehwere and the location of the intercomparison file mentioned at the start of both the run_magmavol scripts present in the MAGMAVOL directory. The Fastchem folders paths and the paths to the MAGMAVOL directory and the reservoir of solutions also needs to be changed. 
+
+For this particular case, the MAGMAVOL is run is the scenario where the melt of some fO2 is able to completely buffer the atmosphere above it. The melt fO2 is obtained from the evolutionary model outputs, or calculated from the pO2 of the atmosphere if the melt fO2 is not provided. If both information are absent, a default value of IW+4 is used to run MAGMAVOL in the TARGET_FO2 mode.
+
+For specific cases, comment out the cases in _main_ which you don't need to run and then simply run the script using:
+
+python3 run_magmavol_meltfug.py
+
+An alternate way is to simply go to the input folder for magmavol_meltfug of the CHILI directory in intercomparison. Uncommenting out all cases except for what you need and then running each of the input scripts is also doable provided that the process above is also done.
+
+
