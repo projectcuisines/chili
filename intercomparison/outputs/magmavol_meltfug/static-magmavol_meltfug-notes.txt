@@ -4,11 +4,11 @@ ________________________________________________________________________________
 
 1. VapoRock installation
 
-For installing VapoRock, please see instructions at https://gitlab.com/ENKI-portal/vaporock/-/tree/thermoenginelite-port?ref_type=heads for the thermoenginelite-port branch. ThermoEngine necessary to run VapoRock can technically already be installled by doing:
+For installing VapoRock, please see instructions at https://gitlab.com/ENKI-portal/vaporock/-/tree/thermoenginelite-port?ref_type=heads for the thermoenginelite-port branch. ThermoEngine necessary to run VapoRock can technically already be installed by doing:
 
 pip install thermoengine
 
-The pip installable version of VapoRock cannot tecnically be used, so one has to clone the branch specific VapoRock repository and then install that version specifically.
+The pip installable version of VapoRock cannot technically be used, so one has to clone the branch specific VapoRock repository and then install that version specifically.
 
 _______________________________________________________________________________________________________________________________ 
 
@@ -32,15 +32,15 @@ git switch chili
 
 Read the installation instructions and instructions to download the reservoir of solutions in the README page provided and test if MAGMAVOL works with all necessary modifications.
 
-Once it is confirmed that MAGMAVOL works, the CHILI repository can be cloned somehwere and the location of the intercomparison file mentioned at the start of both the run_magmavol scripts present in the MAGMAVOL directory. The Fastchem folders paths and the paths to the MAGMAVOL directory and the reservoir of solutions also needs to be changed. 
+Once it is confirmed that MAGMAVOL works, the CHILI repository can be cloned somewhere and the location of the intercomparison file must be given at the start of both the run_magmavol scripts present in the MAGMAVOL directory. The FastChem folder paths and the paths to the MAGMAVOL directory and the reservoir of solutions also need to be changed.
 
-For this particular case, the MAGMAVOL is run is the scenario where the melt of some fO2 is able to completely buffer the atmosphere above it. The melt fO2 is obtained from the evolutionary model outputs, or calculated from the pO2 of the atmosphere if the melt fO2 is not provided. If both information are absent, a default value of IW+4 is used to run MAGMAVOL in the TARGET_FO2 mode.
+For this particular case, MAGMAVOL is run in the scenario where the melt of some fO2 is able to completely buffer the atmosphere above it. The melt fO2 is obtained from the evolutionary model outputs, or calculated from the pO2 of the atmosphere if the melt fO2 is not provided. If both are absent, a default value of IW+4 is used to run MAGMAVOL in the TARGET_FO2 mode.
 
 For specific cases, comment out the cases in _main_ which you don't need to run and then simply run the script using:
 
 python3 run_magmavol_meltfug.py
 
-An alternate way is to simply go to the input folder for magmavol_meltfug of the CHILI directory in intercomparison. Uncommenting out all cases except for what you need and then running each of the input scripts is also doable provided that the process above is also done.
+An alternate way is to simply go to the input folder for magmavol_meltfug of the CHILI directory in intercomparison. Commenting out all cases except for what you need and then running each of the input scripts is also doable provided that the process above is also done.
 
 _______________________________________________________________________________________________________________________________
 
@@ -67,7 +67,7 @@ ________________________________________________________________________________
 
 5. Pressure budget and silicate vapour
 
-In several cases, particularly at high surface temperatures, the sum of the partial pressures reported in the CHILI output columns (H2O, CO2, CO, H2, CH4, O2) is substantially less than p_tot. The remainder consists of refractory vapour species — oxides and elemental vapours of Si, Mg, Fe, Na, K, Ca, Al and related species — produced by VapoRock's magma ocean evaporation model at the high surface temperatures involved. These species do not have dedicated columns in the CHILI static output format and are therefore not reported individually. The discrepancy is largest in the hottest cases: for example, at trappist1alpha tau3-hot (T_surf ~ 3500 K) refractory vapours accounts for the majority of p_tot. This is a physically expected result at these temperatures and does not represent a mass-balance error; the full elemental inventory is conserved within the MAGMAVOL calculation.
+In several cases, particularly at high surface temperatures, the sum of the partial pressures reported in the CHILI output columns (H2O, CO2, CO, H2, CH4, O2) is substantially less than p_tot. The remainder consists of refractory vapour species, oxides and elemental vapours of Si, Mg, Fe, Na, K, Ca, Al and related species, produced by VapoRock's magma ocean evaporation model at the high surface temperatures involved. These species do not have dedicated columns in the CHILI static output format and are therefore not reported individually. The discrepancy is largest in the hottest cases: for example, at trappist1alpha tau3-hot (T_surf ~ 3500 K) refractory vapour accounts for the majority of p_tot. This is a physically expected result at these temperatures and does not represent a mass-balance error; the full elemental inventory is conserved within the MAGMAVOL calculation.
 
 _______________________________________________________________________________________________________________________________
 
@@ -75,7 +75,7 @@ ________________________________________________________________________________
 
 In a number of cases, O2 constitutes a dominant fraction of the reported atmosphere (for example, O2 is approximately 76% of the atmosphere at earth tau3-hot, 78% at venus tau3-hot and trappist1alpha tau3-cold, and 99% at trappist1alpha tau4-cold). This is a direct consequence of the physical scenario this submission represents.
 
-In the TARGET_FO2 mode, the melt is assumed to be a perfect redox buffer: the melt fO2 fixes the O2 partial pressure of the atmosphere above it, and the FastChem equilibrium chemistry then distributes the elemental inventory across all species at that imposed oxidation state. The target fO2 is taken in priority order from (1) the fO2_melt(bar) column of the evolutionary model output, converted to a deviation from the IW buffer; (2) the p_O2(bar) column if fO2_melt is unavailable; (3) a default of IW+4 if neither is provided. This approach follows Seidler et al. (2024, A&A, 691, A208) and Seidler et al. (2026, A&A, 700, A140), where the same assumption is applied to ultra-hot rocky exoplanet atmospheres.
+In the TARGET_FO2 mode, the melt is assumed to be a perfect redox buffer: the melt fO2 fixes the O2 partial pressure of the atmosphere above it, and the FastChem equilibrium chemistry then distributes the elemental inventory across all species at that imposed oxidation state. The target fO2 is taken in priority order from (1) the fO2_melt(bar) column of the evolutionary model output, converted to a deviation from the IW buffer; (2) the p_O2(bar) column if fO2_melt is unavailable; (3) a default of IW+4 if neither is provided. This approach follows Seidler et al. (2024, A&A, 691, A159) and Seidler et al. (2026, A&A, 710, A359), where the same assumption is applied to ultra-hot rocky exoplanet atmospheres.
 
 At the temperatures and fO2 values relevant to the early magma ocean stage (IW+4 or above), the equilibrium chemistry drives a large fraction of the available oxygen into the gas phase as O2 rather than into H2O or CO2, because the H and C inventories at these tau values are relatively small compared to the total oxygen implied by the imposed fO2. The oxygen-rich composition is therefore a self-consistent outcome of the imposed melt buffering assumption, not an artefact.
 
