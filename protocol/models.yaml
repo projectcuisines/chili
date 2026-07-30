@@ -59,3 +59,11 @@ models:
     title: MOAI
     colour: "#7cb342"
     type: evolutionary
+  - name: magmavol_meltfug
+    title: MAGMAVOL (melt fug.)
+    colour: "#8d6e63"
+    type: static
+  - name: magmavol_massbalance
+    title: MAGMAVOL (mass bal.)
+    colour: "#546e7a"
+    type: static
