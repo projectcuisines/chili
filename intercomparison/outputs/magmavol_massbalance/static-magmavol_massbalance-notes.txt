@@ -26,7 +26,7 @@ For detailed instructions, please see here: https://newstrangeworlds.github.io/F
 
 _______________________________________________________________________________________________________________________________
 
-When both have been installed, clone the MAGMAVOL repository at https://github.com/dashspandan/MAGMAVOL. Then switch to the chili specifc branch by doing
+When both have been installed, clone the MAGMAVOL repository at https://github.com/dashspandan/MAGMAVOL. Then switch to the chili specific branch by doing
 
 git switch chili
 
@@ -34,13 +34,13 @@ Read the installation instructions and instructions to download the reservoir of
 
 Once it is confirmed that MAGMAVOL works, the CHILI repository can be cloned somewhere and the location of the intercomparison file must be given at the start of both the run_magmavol scripts present in the MAGMAVOL directory. The Fastchem folder paths and the paths to the MAGMAVOL directory and the reservoir of solutions also need to be changed.
 
-For this particular case, the MAGMAVOL is run in the scenario where the mass balance and equilibrium reactions are satisfied through the scheme proposed in Charnoz et al. (2023, A&A, 674, A224). The input C,H and O values are obtained from evolutionary model outputs for particular tau values.
+For this particular case, MAGMAVOL is run in the scenario where the mass balance and equilibrium reactions are satisfied through the scheme proposed in Charnoz et al. (2023, A&A, 674, A224). The input C, H and O values are obtained from evolutionary model outputs for particular tau values.
 
 For specific cases you need to run, comment out the cases in _main_ which you don't need to run and then simply run the script using:
 
 python3 run_magmavol_massbalance.py
 
-An alternate way is to simply go to the input folder for magmavol_massbalance of the CHILI directory in intercomparison. Uncommenting out all cases except for what you need and then running each of the input scripts is also doable provided that the process above is also done.
+An alternate way is to simply go to the input folder for magmavol_massbalance of the CHILI directory in intercomparison. Commenting out all cases except for what you need and then running each of the input scripts is also doable provided that the process above is also done.
 
 _______________________________________________________________________________________________________________________________
 
