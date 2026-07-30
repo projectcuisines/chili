@@ -10,3 +10,5 @@ Output files content: static-lavatmos3-<planet>-<tau>-[hot,cold]-data.csv
 - <planet>: Venus, Earth, Trappist-1b, Trappist-1e,Trappist-1alpha
 - <tau> : 3, 4, 5, 6
 - [hot,cold]: the output parameters taken from the corresponding evolutionary model of the coldes [cold] and hottest [hot] case
+
+The C-H-O abundances in Lavatmos are treated as an additional volatile layer in the atmosphere. In Lavatmos 3.0, similarly to Lavatmos 2.0, the vaporisation is coupled to this layer of volatiles through FastChem, which computes a new atmospheric composition from all elements that vapourise and the volatiles.
