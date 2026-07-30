@@ -9,6 +9,10 @@ models:
     type: evolutionary
   - name: lavatmos
     title: LavAtmos v2.0
+    colour: "#c90076"
+    type: static
+  - name: lavatmos3
+    title: LavAtmos v3.0
     colour: "#e94f37"
     type: static
   - name: lincs
