@@ -42,4 +42,47 @@ python3 run_magmavol_meltfug.py
 
 An alternate way is to simply go to the input folder for magmavol_meltfug of the CHILI directory in intercomparison. Uncommenting out all cases except for what you need and then running each of the input scripts is also doable provided that the process above is also done.
 
+_______________________________________________________________________________________________________________________________
+
+3. Code version and contact
+
+The results in this submission were produced using the chili branch of the MAGMAVOL repository (https://github.com/dashspandan/MAGMAVOL). 
+
+Commit: 5140960
+
+For questions about obtaining this specific version or reproducing the results, please contact Spandan Dash at either dash@ipgp.fr or at dashspandan@gmail.com. Dr. Sebastien Charnoz can also be contacted at charnoz@ipgp.fr if Spandan is not available.
+
+_______________________________________________________________________________________________________________________________
+
+4. Inputs ingested from the evolutionary models
+
+For each (planet, tau, hot/cold) combination, MAGMAVOL ingests the following quantities from the evolutionary model output CSV at the time step closest to the requested tau:
+
+- T_surf (K): the magma ocean surface temperature, used as the thermal boundary condition for the atmosphere-melt equilibrium calculation.
+- massH_atm (kg) and massC_atm (kg): the atmospheric hydrogen and carbon masses, converted to partial pressures in bar using the planet's surface gravity and radius (homogenised CHILI values) and passed as initial and target atmospheric H and C pressures respectively.
+
+In principle massO_atm (kg) is also available and was converted to an oxygen pressure in bar by the same procedure. However, in the TARGET_FO2 mode used here the total atmospheric oxygen content is entirely determined by the imposed melt fO2 (see section 6 below), so the pre-existing oxygen inventory has no effect on the converged solution. Accordingly, the initial atmospheric oxygen is set to zero for this scenario, and only C and H are used as effective inputs.
+
+_______________________________________________________________________________________________________________________________
+
+5. Pressure budget and silicate vapour
+
+In several cases, particularly at high surface temperatures, the sum of the partial pressures reported in the CHILI output columns (H2O, CO2, CO, H2, CH4, O2) is substantially less than p_tot. The remainder consists of refractory vapour species — oxides and elemental vapours of Si, Mg, Fe, Na, K, Ca, Al and related species — produced by VapoRock's magma ocean evaporation model at the high surface temperatures involved. These species do not have dedicated columns in the CHILI static output format and are therefore not reported individually. The discrepancy is largest in the hottest cases: for example, at trappist1alpha tau3-hot (T_surf ~ 3500 K) refractory vapours accounts for the majority of p_tot. This is a physically expected result at these temperatures and does not represent a mass-balance error; the full elemental inventory is conserved within the MAGMAVOL calculation.
+
+_______________________________________________________________________________________________________________________________
+
+6. Oxygen-rich cases and the melt fO2 assumption
+
+In a number of cases, O2 constitutes a dominant fraction of the reported atmosphere (for example, O2 is approximately 76% of the atmosphere at earth tau3-hot, 78% at venus tau3-hot and trappist1alpha tau3-cold, and 99% at trappist1alpha tau4-cold). This is a direct consequence of the physical scenario this submission represents.
+
+In the TARGET_FO2 mode, the melt is assumed to be a perfect redox buffer: the melt fO2 fixes the O2 partial pressure of the atmosphere above it, and the FastChem equilibrium chemistry then distributes the elemental inventory across all species at that imposed oxidation state. The target fO2 is taken in priority order from (1) the fO2_melt(bar) column of the evolutionary model output, converted to a deviation from the IW buffer; (2) the p_O2(bar) column if fO2_melt is unavailable; (3) a default of IW+4 if neither is provided. This approach follows Seidler et al. (2024, A&A, 691, A208) and Seidler et al. (2026, A&A, 700, A140), where the same assumption is applied to ultra-hot rocky exoplanet atmospheres.
+
+At the temperatures and fO2 values relevant to the early magma ocean stage (IW+4 or above), the equilibrium chemistry drives a large fraction of the available oxygen into the gas phase as O2 rather than into H2O or CO2, because the H and C inventories at these tau values are relatively small compared to the total oxygen implied by the imposed fO2. The oxygen-rich composition is therefore a self-consistent outcome of the imposed melt buffering assumption, not an artefact.
+
+_______________________________________________________________________________________________________________________________
+
+7. Total pressure
+
+The p_tot reported in the CHILI output files is not an input to MAGMAVOL. It is an output: MAGMAVOL takes the elemental inventories (H and C in bar, derived from the evolutionary model masses as described in section 4, plus the melt fO2 target) and solves the atmosphere-melt chemical equilibrium self-consistently, producing p_tot as a result of the converged solution. The input surface pressure p_surf from the evolutionary model is therefore not carried forward and p_tot will in general differ from it, sometimes substantially, because the two quantities represent different physical states: p_surf is the pressure at the end of the evolutionary model's own calculation, while MAGMAVOL's p_tot is the pressure of a new static equilibrium computed at T_surf with the given elemental inventory and melt fO2.
+
 
