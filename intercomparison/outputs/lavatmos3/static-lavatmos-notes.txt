@@ -1,0 +1,12 @@
+Contact person(s): Leoni Janssen & Yamila Miguel
+Email: ljanssen@strw.leidenuniv.nl / ymiguel@strw.leidenuniv.nl
+Code version used: https://github.com/cvbuchem/LavAtmos 16.07.2026
+Code archived at: https://github.com/cvbuchem/LavAtmos : Lavatmos3.0 , dev branch, commit b426046 
+
+
+Output files content: static-lavatmos3-<planet>-<tau>-[hot,cold]-data.csv
+
+- output for a C-H-O envelope with element abundances , surface pressure and surface temperature from the corresponding output of the evolutionary runs for:
+- <planet>: Venus, Earth, Trappist-1b, Trappist-1e,Trappist-1alpha
+- <tau> : 3, 4, 5, 6
+- [hot,cold]: the output parameters taken from the corresponding evolutionary model of the coldes [cold] and hottest [hot] case
