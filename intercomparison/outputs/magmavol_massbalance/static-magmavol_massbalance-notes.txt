@@ -1,0 +1,86 @@
+To run the input files for MAGMAVOL, you need to have both VapoRock and FastChem installed since MAGMAVOL is basically a coupling between those two packages.
+
+_______________________________________________________________________________________________________________________________
+
+1. VapoRock installation
+
+For installing VapoRock, please see instructions at https://gitlab.com/ENKI-portal/vaporock/-/tree/thermoenginelite-port?ref_type=heads for the thermoenginelite-port branch. ThermoEngine necessary to run VapoRock can technically already be installed by doing:
+
+pip install thermoengine
+
+The pip installable version of VapoRock cannot technically be used, so one has to clone the branch specific VapoRock repository and then install that version specifically.
+
+_______________________________________________________________________________________________________________________________ 
+
+2. FastChem installation
+
+FastChem can be easily installed by running
+
+pip install pyfastchem
+
+but I recommend cloning the repository at https://github.com/NewStrangeWorlds/FastChem and then installing by doing
+
+python3 setup.py install
+
+For detailed instructions, please see here: https://newstrangeworlds.github.io/FastChem/sections/installation.html
+
+_______________________________________________________________________________________________________________________________
+
+When both have been installed, clone the MAGMAVOL repository at https://github.com/dashspandan/MAGMAVOL. Then switch to the chili specific branch by doing
+
+git switch chili
+
+Read the installation instructions and instructions to download the reservoir of solutions in the README page provided and test if MAGMAVOL works with all necessary modifications.
+
+Once it is confirmed that MAGMAVOL works, the CHILI repository can be cloned somewhere and the location of the intercomparison file must be given at the start of both the run_magmavol scripts present in the MAGMAVOL directory. The Fastchem folder paths and the paths to the MAGMAVOL directory and the reservoir of solutions also need to be changed.
+
+For this particular case, MAGMAVOL is run in the scenario where the mass balance and equilibrium reactions are satisfied through the scheme proposed in Charnoz et al. (2023, A&A, 674, A224). The input C, H and O values are obtained from evolutionary model outputs for particular tau values.
+
+For specific cases you need to run, comment out the cases in _main_ which you don't need to run and then simply run the script using:
+
+python3 run_magmavol_massbalance.py
+
+An alternate way is to simply go to the input folder for magmavol_massbalance of the CHILI directory in intercomparison. Commenting out all cases except for what you need and then running each of the input scripts is also doable provided that the process above is also done.
+
+_______________________________________________________________________________________________________________________________
+
+3. Code version and contact
+
+The results in this submission were produced using the chili branch of the MAGMAVOL repository (https://github.com/dashspandan/MAGMAVOL).
+
+Commit: 5140960
+
+For questions about obtaining this specific version or reproducing the results, please contact Spandan Dash at either dash@ipgp.fr or at dashspandan@gmail.com. Dr. Sebastien Charnoz can also be contacted at charnoz@ipgp.fr if Spandan is not available.
+
+_______________________________________________________________________________________________________________________________
+
+4. Inputs ingested from the evolutionary models
+
+For each (planet, tau, hot/cold) combination, MAGMAVOL ingests the following quantities from the evolutionary model output CSV at the time step closest to the requested tau:
+
+- T_surf (K): the magma ocean surface temperature, used as the thermal boundary condition for the atmosphere-melt equilibrium calculation.
+- massH_atm (kg), massC_atm (kg), and massO_atm (kg): the atmospheric hydrogen, carbon, and oxygen masses, converted to partial pressures in bar using the planet's surface gravity and radius (homogenised CHILI values) and passed as the initial atmospheric H, C, and O inventories. Where any of these masses is absent or NaN in the evolutionary model output, the corresponding pressure is set to zero.
+
+Unlike the melt-fugacity scenario, in the mass-balance mode used here the oxygen inventory is an effective input: the equilibrium redox state emerges self-consistently from the elemental budget rather than being imposed by an external fO2 target. The fO2 of the converged solution is therefore a product of the calculation, not a prescribed quantity. This mass-balance scheme is described in Charnoz et al. (2023, A&A, 674, A224).
+
+_______________________________________________________________________________________________________________________________
+
+5. Pressure budget and silicate vapour
+
+In several cases, particularly at high surface temperatures, the sum of the partial pressures reported in the CHILI output columns (H2O, CO2, CO, H2, CH4, O2) is substantially less than p_tot. The remainder consists of refractory vapour species produced by VapoRock's magma ocean evaporation model. These species do not have dedicated columns in the CHILI static output format and are therefore not reported individually; the discrepancy does not represent a mass-balance error.
+
+The effect is largest in the hottest cases. At trappist1alpha tau3-hot (T_surf = 3534 K), silicate vapour constitutes approximately 80% of p_tot. The dominant species at this temperature are SiO (~2.15 bar), Na (~0.37 bar), SiO2 (~0.15 bar), Fe (~0.10 bar), Mg (~0.07 bar), FeO (~0.06 bar), MgO (~0.05 bar), and K (~0.02 bar). Similar though less extreme behaviour is seen at trappist1b tau3-hot, tau4-hot, and tau6-hot, at earth tau5-hot, venus tau5-hot, and trappist1e tau6-hot, where the unaccounted fraction is in the range 40–50%.
+
+_______________________________________________________________________________________________________________________________
+
+6. Oxygen-rich cases
+
+In trappist1alpha tau4-cold, O2 constitutes approximately 98% of the reported atmosphere (7.96 of 8.09 bar). This case is seeded from the proteus evolutionary model at tau = 1e4 yr, which supplies a very small H inventory and no C. In the mass-balance mode, the atmosphere-melt system finds a self-consistent equilibrium given the actual volatile inventory: with little H available to form H2O and no C to form CO2, nearly all the available elemental oxygen ends up as O2. This is a property of the input inventory at this particular time step, not an artefact of the method. The same case also shows a high O2 fraction in the melt-fugacity submission, which further supports the interpretation that the oxygen-rich composition reflects the evolutionary model's own output at this tau rather than a modelling assumption specific to either MAGMAVOL scenario.
+
+_______________________________________________________________________________________________________________________________
+
+7. Total pressure
+
+The p_tot reported in the CHILI output files is not an input to MAGMAVOL. It is an output: MAGMAVOL takes the elemental inventories (H, C, and O in bar, derived from the evolutionary model masses as described in section 4) and solves the atmosphere-melt chemical equilibrium self-consistently, producing p_tot as a result of the converged solution. The input surface pressure p_surf from the evolutionary model is therefore not carried forward and p_tot will in general differ from it, sometimes substantially, because the two quantities represent different physical states: p_surf is the pressure at the end of the evolutionary model's own calculation, while MAGMAVOL's p_tot is the pressure of a new static equilibrium computed at T_surf with the given elemental inventory.
+
+

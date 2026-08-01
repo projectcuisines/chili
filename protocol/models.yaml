@@ -9,6 +9,10 @@ models:
     type: evolutionary
   - name: lavatmos
     title: LavAtmos v2.0
+    colour: "#c90076"
+    type: static
+  - name: lavatmos3
+    title: LavAtmos v3.0
     colour: "#e94f37"
     type: static
   - name: lincs
@@ -55,3 +59,11 @@ models:
     title: MOAI
     colour: "#7cb342"
     type: evolutionary
+  - name: magmavol_meltfug
+    title: MAGMAVOL (melt fug.)
+    colour: "#8d6e63"
+    type: static
+  - name: magmavol_massbalance
+    title: MAGMAVOL (mass bal.)
+    colour: "#546e7a"
+    type: static
