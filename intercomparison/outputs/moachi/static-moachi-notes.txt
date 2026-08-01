@@ -1,4 +1,0 @@
-MOAChi atmospheric profiles for CHILI intercomparison project. The version of MOAChi used will be made public by Q3 2026.
-See https://github.com/projectcuisines/chili/blob/main/intercomparison/analysis_static/static_model_outputs_csv.csv for 
-the input data grid. Data pre-processing and run configuration are recorded in the intercomparison/input/moachi folder. 
-Contact Bo Peng (bpengeps@stanford.edu) for additional information. 
