@@ -1,0 +1,6 @@
+MORE calculates the freezing of the magma ocean via the assumed decrease in melt fraction of the magma ocean, without considering an actual time evolution or cooling at the surface.
+In principle this should deliver similar results to time-dependent evolution models as long as no time-dependent atmospheric escape is considered.
+
+Melt temperature is calculated at 40% between solidus and liquidus, following Morschhauser et al. 2011 (Takahashi 1990) for p<10 GPa, Stamenkovic et al. 2011 for p<100 GPa, 
+and Stixrude 2014 for higher pressures, with interpolations at the pressure transitions to avoid melt temperature jumps.
+During freezing, we assume that always 1% of the melt is trapped in the solidified volume per freezing step.
