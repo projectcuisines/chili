@@ -10,3 +10,7 @@
 #### Missing Cases / Exclusions
 - **TRAPPIST-1 alpha**:
   Data for this case is **not submitted**. Under the provided initial conditions, the resulting surface temperature exceeds the applicable temperature range of our model.
+  
+#### Additional Cases
+- The `aux/` folder contains additional simulation cases. Currently, this is one case in which the assumed melt-trapping fraction is increased to 40%, from the 1% baseline assumed in the main simulations (informed by Elkins-Tanton 2008).
+
