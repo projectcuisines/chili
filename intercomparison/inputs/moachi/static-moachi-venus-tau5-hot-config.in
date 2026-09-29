@@ -1,0 +1,12 @@
+# auto-generated config.in for row 21
+idx = 21
+M_s = 0.815
+R_s = 0.95
+T_eq = 427.6042063425952
+T_int = 86.19610843619606
+P_s_Pa = 32099155.83216
+elemental_comp_source = 'surface_p_i'
+C_N_H_O_mass_frac = [0.21204110567071346, 0.0, 0.026422856125425526, 0.761536038203861]
+initial_guess = [1.0004, 1.07]
+b_ChemEq = False
+ys_atm_raw = [1.151263958158e-06, 9.932891777886, 183.668108112, 0.0, 0.0, 127.3905572804, 0.0]

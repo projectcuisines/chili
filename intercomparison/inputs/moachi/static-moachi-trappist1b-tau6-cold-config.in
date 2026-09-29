@@ -1,0 +1,11 @@
+# auto-generated config.in for row 5
+idx = 5
+M_s = 1.0
+R_s = 1.0
+T_eq = 617.433365296347
+T_int = 0.0
+P_s_Pa = 18527930.0
+elemental_comp_source = 'bulk_mass_atm'
+C_N_H_O_mass_frac = [0.27270061734631085, 0.0, 9.052925160177467e-05, 0.7272088534020873]
+initial_guess = [1.0004, 1.07]
+b_ChemEq = True
