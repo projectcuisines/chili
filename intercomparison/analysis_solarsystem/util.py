@@ -149,11 +149,13 @@ def list_planets():
 def clear_folder(folder:str):
     """Delete all files in the specified folder."""
     if not os.path.isdir(folder):
-        raise FileNotFoundError(f"Folder '{folder}' not found.")
+        print(f"Folder '{folder}' not found.")
+        return False
     for f in os.listdir(folder):
         path = os.path.join(folder, f)
         if os.path.isfile(path) and np.any([path.endswith(ext) for ext in [".png", ".pdf", ".jpg", ".svg"]]):
             os.remove(path)
+    return True
 
 def list_models():
     """List the available models in the outputs directory."""
